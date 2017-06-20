@@ -1,0 +1,23 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch",
+    "build": "webpack -p"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^2.6.0",
+    "mithril": "^1.1.1",
+    "moment": "^2.18.1"
+  },
+  "devDependencies": {
+    "extract-text-webpack-plugin": "^2.1.2",
+    "webpack": "^2.6.1"
+  }
+}
