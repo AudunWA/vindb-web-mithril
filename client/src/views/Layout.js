@@ -94,6 +94,16 @@ module.exports = {
                                             )
                                         ),
                                         m("li",
+                                            m("a[href='/pricechanges']", {oncreate: m.route.link},
+                                                [
+                                                    "Prisendringer",
+                                                    m("i.material-icons.left",
+                                                        "update"
+                                                    )
+                                                ]
+                                            )
+                                        ),
+                                        m("li",
                                             m("a.dropdown-button[data-activates='dropdown1'][href='#']",
                                                 [
                                                     "Topplister",

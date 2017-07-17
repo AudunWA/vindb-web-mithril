@@ -1,22 +1,25 @@
 var m = require("mithril");
 var Product = require("../../models/Product");
 var Pagination = require("./Pagination");
+var moment = require("moment");
 
 function onSearch(e) {
     e.preventDefault();
+    var params = m.route.param();
+
     if(typeof queryString !== "undefined") {
-        m.route.set("/products?query=" + queryString);
-    } else {
-        m.route.set("/products");
+        params.query = queryString;
     }
-    Product.loadList(queryString);
+
+    m.route.set("/products", params);
+    //Product.loadList(m.route.param());
 }
 
 var ProductList = {
     queryString: "",
     oninit: function (vnode) {
         queryString = m.route.param("query");
-        Product.loadList(queryString);
+        Product.loadList(m.route.param());
         $(document).ready(function() {
             $('select').material_select();
         });
@@ -41,7 +44,7 @@ var ProductList = {
                             onsubmit: onSearch
                         },
                         m(".row",
-                            m(".input-field col s6",
+                            m(".input-field col s12",
                                 m("input[id='search'][type='search'][required]", { value: queryString }),
                                 m("label.label-icon[for='search']",
                                     m("i.material-icons", "search")
@@ -74,27 +77,27 @@ var ProductList = {
                 )
             ),
             m(Pagination),
-            m("table.ui-responsive.bordered.highlight[data-role='table', data-mode='columntoggle']", [
+            m("table.bordered.highlight[data-role='table', data-mode='columntoggle']", [
                 m("thead",
                     m("tr", [
-                        m("th.clickable[data-field='varenummer'][data-priority='4']", "Varenummer"),
+                        m("th.clickable.hide-on-med-and-down[data-field='varenummer'][data-priority='4']", "Varenummer"),
                         m("th.clickable[data-field='varenavn'][data-priority='7']", "Varenavn"),
                         m("th.clickable[data-field='pris'][data-priority='2']", "Pris"),
-                        m("th.clickable[data-field='literspris'][data-priority='3']", "Literspris"),
+                        m("th.clickable.hide-on-med-and-down[data-field='literspris'][data-priority='3']", "Literspris"),
                         m("th.clickable[data-field='epk'][data-priority='1']", "EPK"),
                         m("th.clickable[data-field='first_seen'][data-priority='5']", "Først sett"),
-                        m("th.clickable[data-field='last_seen'][data-priority='6']", "Sist sett"),
+                        m("th.clickable.hide-on-med-and-down[data-field='last_seen'][data-priority='6']", "Sist sett"),
                     ])
                 ),
                 m("tbody", Product.list.map(function (product) {
                     return m("tr.clickable-row", { key: product.varenummer, "data-href": "/product/" + product.varenummer }, [
-                        m("td", m("a", { href: "/product/" + product.varenummer, oncreate: m.route.link }, product.varenummer)),
-                        m("td", product.varenavn),
+                        m("td.hide-on-med-and-down", product.varenummer),
+                        m("td", m("a.rowlink", { href: "/product/" + product.varenummer, oncreate: m.route.link }, product.varenavn)),
                         m("td", product.pris + ",-"),
-                        m("td", product.literspris.toFixed(2) + ",-"),
+                        m("td.hide-on-med-and-down", product.literspris.toFixed(2) + ",-"),
                         m("td", product.epk.toFixed(2) + " mikroliter"),
-                        m("td", product.first_seen),
-                        m("td", product.last_seen)
+                        m("td", moment(product.first_seen).format('D. MMMM YYYY')),
+                        m("td.hide-on-med-and-down", moment(product.last_seen).format('D. MMMM YYYY'))
                     ]);
                 }))
             ])

@@ -11,8 +11,8 @@ moment.locale("nb");
 var productId;
 
 const tabs = [
-    { title: "Produkt", href: "#main_tab"},
-    { isActive: true, title: "Prisgraf", href: "#price_tab"},
+    { isActive: true, title: "Produkt", href: "#main_tab"},
+    { title: "Prisgraf", href: "#price_tab"},
     { title: "Historikk", href: "#history_tab"}
 ];
 

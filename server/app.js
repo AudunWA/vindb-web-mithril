@@ -14,6 +14,7 @@ var mysql = require('mysql');
 var priceHistory = require('./routes/rest/pricehistory');
 var restProduct = require("./routes/rest/product");
 var restProducts = require("./routes/rest/products");
+var priceChanges = require("./routes/rest/pricechanges");
 
 var app = express();
 var test = app.get('env');
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.use('/rest/pricehistory', priceHistory);
 app.use("/rest/products", restProduct);
 app.use("/rest/products", restProducts);
+app.use("/rest/pricechanges", priceChanges);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

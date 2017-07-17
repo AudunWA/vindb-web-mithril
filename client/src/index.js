@@ -3,6 +3,7 @@ var Layout = require("./views/Layout");
 var Home = require("./views/home/Home");
 var ProductList = require("./views/productlist/ProductList");
 var Product = require("./views/product/Product");
+var PriceChanges = require("./views/changes/PriceChanges");
 
 // Define routes. Second argument is default/redirect route
 m.route(document.body, "/", {
@@ -21,5 +22,6 @@ m.route(document.body, "/", {
         render: function (vnode) {
             return m(Product, vnode.attrs);
         }
-    }
+    },
+    "/pricechanges": PriceChanges
 });
