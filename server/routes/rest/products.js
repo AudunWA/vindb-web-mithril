@@ -60,6 +60,7 @@ router.get('/', function(req, res, next) {
     // Get products from db
     pool.getConnection(function(err, connection) {
         if (err) {
+            connection.release();
             return next(err);
         }
 
@@ -72,6 +73,7 @@ router.get('/', function(req, res, next) {
             var query = squelQuery.toParam();
             getPageCount(connection, query.text, query.values, function(err, pageCount) {
                 if (err) {
+                    connection.release();
                     return next(err);
                 }
 
