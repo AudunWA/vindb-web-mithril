@@ -4,6 +4,7 @@ var moment = require("moment");
 var Product = require("../../models/Product");
 var Layout = require("../Layout");
 var PriceHistoryCard = require("./PriceHistoryCard");
+var ProductHistoryCard = require("./ProductHistoryCard");
 
 // Set moment locale
 moment.locale("nb");
@@ -17,9 +18,9 @@ const tabs = [
 ];
 
 var Tabs = {
-    oncreate: function () {
+    onupdate: function () {
         // Make sure tabs get initialized
-        $('ul.tabs').tabs();
+        $("ul.tabs").tabs({ onShow: updateTabInUrl });
     },
     view: function (vnode) {
         return m(".nav-content",
@@ -30,6 +31,34 @@ var Tabs = {
         )
     }
 };
+
+function updateTabInUrl(tab) {
+    var data = m.route.param();
+
+    var tabId;
+    switch (tab.selector) {
+        // case "#main_tab":
+        // default:
+        //     tabId = "main";
+        //     break;
+        case "#price_tab":
+            tabId = "price";
+            break;
+        case "#history_tab":
+            tabId = "history";
+            break;
+    }
+
+    if(data["tab"] !== tabId) {
+        if(!tabId) {
+            delete data.tab;
+            m.route.set("/product/:id", data);
+        } else {
+            data["tab"] = tabId;
+            m.route.set("/product/:id/:tab", data);
+        }
+    }
+}
 
 var ProductInfoCard = {
     view: function (vnode) {
@@ -103,44 +132,33 @@ var ExtendedProductInfoCard = {
     }
 };
 
-var ProductHistoryCard = {
-    view: function (vnode) {
-        var history = vnode.attrs.history;
-        if(history === null) return null;
-
-        return m(".card blue",
-            m(".card-content white-text",
-                m("span.card-title", "Historikk"),
-                m("table.bordered.responsive-table",
-                    m("thead",
-                        m("tr",
-                            m("th[data-field='field']", "Felt"),
-                            m("th[data-field='old']", "Gammel verdi"),
-                            m("th[data-field='new']", "Ny verdi"),
-                            m("th[data-field='time']", "Tidspunkt")
-                        )
-                    ),
-                    m("tbody", history.map(function (row) {
-                            return m("tr",
-                                m("td", row.name),
-                                m("td", row.old_value || m("i", "Ingen verdi")),
-                                m("td", row.new_value || m("i", "Ingen verdi")),
-                                m("td", moment(row.time).format('D. MMMM YYYY'))
-                            )
-                        })
-                    )
-                )
-            )
-        );
+function selectCorrectTab() {
+    var tabId;
+    switch (tab) {
+        case "main":
+        default:
+            tabId = "main_tab";
+            break;
+        case "price":
+            tabId = "price_tab";
+            break;
+        case "history":
+            tabId = "history_tab";
+            break;
     }
-};
+    $("ul.tabs").tabs("select_tab", tabId);
+}
 
 var ProductView = {
     oninit: function (vnode) {
         productId = vnode.attrs.id;
+        tab = vnode.attrs.tab;
+        console.log(tab);
         Product.loadCurrent(productId);
     },
-    view: function () {
+    view: function (vnode) {
+        console.log("view");
+
         return m(Layout, /*{ tabs: tabs},*/
             m(Tabs, { tabs: tabs }),
             m(".container",
@@ -161,7 +179,28 @@ var ProductView = {
                 )
             )
         );
-    }
+    },
+    oncreate: function(vnode) {
+        console.log("DOM created")
+    },
+    onupdate: function(vnode) {
+        tab = vnode.attrs.tab;
+        selectCorrectTab();
+        console.log("onupdate")
+    },
+    onbeforeremove: function(vnode) {
+        console.log("exit animation can start")
+        return new Promise(function(resolve) {
+            // call after animation completes
+            resolve()
+        })
+    },
+    onremove: function(vnode) {
+        console.log("removing DOM element")
+    },
+    onbeforeupdate: function(vnode, old) {
+        return true
+    },
 };
 
 module.exports = ProductView;

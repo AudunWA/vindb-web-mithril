@@ -18,6 +18,11 @@ m.route(document.body, "/", {
         }
     }
     ,
+    "/product/:id/:tab": {
+        render: function (vnode) {
+            return m(Product, vnode.attrs);
+        }
+    },
     "/product/:id": {
         render: function (vnode) {
             return m(Product, vnode.attrs);
