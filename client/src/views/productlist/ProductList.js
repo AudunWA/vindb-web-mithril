@@ -63,15 +63,15 @@ var ProductList = {
                 ),
                 m(".row",
                     m(".chip",
-                        "Produsert av Skanlog AS",
+                        m("b", "Skanlog AS"), " (produsent)",
                         m("i.close material-icons", "close")
                     ),
                     m(".chip",
-                        "Absolut vodka",
+                        m("b", "Absolut vodka"), " (navn)",
                         m("i.close material-icons", "close")
                     ),
                     m(".chip",
-                        "Brennevin",
+                        m("b", "Brennevin"), " (type)",
                         m("i.close material-icons", "close")
                     )
                 )
@@ -90,9 +90,9 @@ var ProductList = {
                     ])
                 ),
                 m("tbody", Product.list.map(function (product) {
-                    return m("tr.clickable-row", { key: product.varenummer, "data-href": "/product/" + product.varenummer }, [
+                    return m("tr", { key: product.varenummer, "data-href": "/product/" + product.varenummer }, [
                         m("td.hide-on-med-and-down", product.varenummer),
-                        m("td", m("a.rowlink", { href: "/product/" + product.varenummer, oncreate: m.route.link }, product.varenavn)),
+                        m("td", m("a.rowlink.no-style", { href: "/product/" + product.varenummer, oncreate: m.route.link }, product.varenavn)),
                         m("td", product.pris + ",-"),
                         m("td.hide-on-med-and-down", product.literspris.toFixed(2) + ",-"),
                         m("td", product.epk.toFixed(2) + " mikroliter"),

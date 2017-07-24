@@ -21,3 +21,12 @@ table {
     height: 2.5em;
     margin-bottom: -3.5em;
 }
+
+.chip {
+    margin-left: 5px;
+}
+
+a.no-style {
+    color: inherit;
+    text-decoration: inherit;
+}
