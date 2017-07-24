@@ -30,3 +30,18 @@ a.no-style {
     color: inherit;
     text-decoration: inherit;
 }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.valign-github {
+    vertical-align: middle;
+    padding-right: 0.75em;
+}

@@ -1,5 +1,7 @@
 var m = require("mithril");
 
+var Footer = require("./Footer");
+
 var Tabs = {
     view: function (vnode) {
         return m(".nav-content",
@@ -17,7 +19,7 @@ module.exports = {
         $('.dropdown-button').dropdown();
     },
     view: function (vnode) {
-        return m(".test", m("ul.dropdown-content[id='dropdown1']",
+        return [ m("header", m("ul.dropdown-content[id='dropdown1']",
             [
                 m("li",
                     m("a[href='/products?order_by=first_seen&amp;desc=1']", {oncreate: m.route.link},
@@ -232,7 +234,9 @@ module.exports = {
                     //     )
                     // )
                 )
-            ),
-            /*m(".container", */vnode.children/*)*/);
+            )),
+            m("main", vnode.children),
+            m(Footer)
+        ];
     }
 };
