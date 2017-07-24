@@ -8,11 +8,16 @@ var MaterialCard = require("../general/MaterialCard");
 
 //var first = true;
 var lastDate;
+var loading = true;
 
+function loadPriceChanges() {
+    loading = true;
+    PriceChange.loadPriceChanges().then(function () {
+        loading = false;
+    });
+}
 var PriceChanges = {
-    oninit: function () {
-        PriceChange.loadPriceChanges();
-    },
+    oninit: loadPriceChanges,
     // oncreate: function () {
     //     console.log("Create");
     //     $('.sample').matchHeight({ byRow: false});
@@ -27,6 +32,13 @@ var PriceChanges = {
         //$.fn.matchHeight._update();
     },
     view: function () {
+        if(loading) {
+            return m(Layout,
+                m(".container",
+                    m("h2", "Prisendringer"),
+                    m(".progress", m(".indeterminate"))
+                ));
+        }
         return m(Layout, m(".container",
             m("h2", "Prisendringer"),
             m("ul.collection.with-header",
