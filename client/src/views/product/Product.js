@@ -82,6 +82,7 @@ var ProductInfoCard = {
     }
 };
 
+
 var ExtendedProductInfoCard = {
     product: null,
     getValueMap: function () {
