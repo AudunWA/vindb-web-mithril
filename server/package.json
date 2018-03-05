@@ -1,5 +1,5 @@
 {
-  "name": "vindb-web",
+  "name": "vindb-web-server",
   "version": "0.0.0",
   "private": true,
   "scripts": {
