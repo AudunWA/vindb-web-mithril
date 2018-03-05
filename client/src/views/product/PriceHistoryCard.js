@@ -16,12 +16,10 @@ var PriceHistoryCard = {
             Product.loadPriceHistory(product.varenummer).then(initChart);
         }
         inited = true;
-        return m(".card",
-            m(".card-content",
-                m("span.card-title", "Prisutvikling"),
-                m("canvas#price_chart[width='100%'][height='100%']")
-            )
-        )
+        return m("div.s12#chart-container",
+            m("h2", "Prisutvikling"),
+            m("canvas#price_chart")
+        );
     }
 };
 
@@ -48,6 +46,7 @@ function initChart(data) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true,
             title: {
                 display: false,
                 text: 'Prisutvikling'
@@ -57,41 +56,62 @@ function initChart(data) {
                     left: 0,
                     right: 50,
                     top: 0,
-                    bottom: 50
+                    bottom: 0
                 }
             },
+            // scales: {
+            //     xAxes: [
+            //         {
+            //             type: "time",
+            //             scaleLabel: {
+            //                 display: true,
+            //                 labelString: 'Dato'
+            //             },
+            //             ticks: {
+            //                 maxTicksLimit: 10,
+            //                 stepSize: proceededData.units
+            //             },
+            //             time: {
+            //                 max: proceededData.maxX,
+            //                 round: "day",
+            //                 unit: "day",
+            //                 unitStepSize: proceededData.units
+            //             }
+            //         }
+            //     ],
+            //     yAxes: [
+            //         {
+            //             scaleLabel: {
+            //                 display: true,
+            //                 labelString: 'Pris'
+            //             },
+            //             ticks: {
+            //                 beginAtZero: false,
+            //                 max: proceededData.maxY
+            //             }
+            //         }
+            //     ]
+            // },
             scales: {
-                xAxes: [
-                    {
-                        type: "time",
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Dato'
-                        },
-                        ticks: {
-                            maxTicksLimit: 10,
-                            stepSize: proceededData.units
-                        },
-                        time: {
-                            max: proceededData.maxX,
-                            round: "day",
-                            unit: "day",
-                            unitStepSize: proceededData.units
-                        }
+                xAxes: [{
+                    type: "time",
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Dato'
+                    },
+                    time: {
+                        max: proceededData.maxX,
+                        tooltipFormat: "Do MMMM Y"
                     }
-                ],
-                yAxes: [
-                    {
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Pris'
-                        },
-                        ticks: {
-                            beginAtZero: false,
-                            max: proceededData.maxY
-                        }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Pris'
                     }
-                ]
+                }]
             },
             elements: {
                 line: {

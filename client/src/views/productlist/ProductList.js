@@ -79,7 +79,9 @@ var ProductList = {
             m(Pagination),
             m("table.bordered.highlight[data-role='table', data-mode='columntoggle']", [
                 m("thead",
-                    m("tr", [
+                    m("tr", { onclick: function () {
+                        console.log("Test");
+                    } }, [
                         m("th.clickable.hide-on-med-and-down[data-field='varenummer'][data-priority='4']", "Varenummer"),
                         m("th.clickable[data-field='varenavn'][data-priority='7']", "Varenavn"),
                         m("th.clickable[data-field='pris'][data-priority='2']", "Pris"),
