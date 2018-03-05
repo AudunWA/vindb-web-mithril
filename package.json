@@ -1,8 +1,7 @@
 {
   "name": "vindb-web",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
-    "postintall": "npm install --prefix server && npm install --prefix client"
+    "postinstall": "npm install --prefix server && npm install --prefix client"
   }
 }
