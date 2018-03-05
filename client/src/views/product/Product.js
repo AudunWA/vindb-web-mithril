@@ -77,7 +77,7 @@ var ProductInfoCard = {
                 m("p", m("b", "Først sett: "), moment(product.first_seen).format('D. MMMM YYYY')),
                 m("p", m("b", "Sist sett: "), moment(product.last_seen).format('D. MMMM YYYY'))
             ),
-            m(".card-action", m("a", { href: "http://www.vinmonopolet.no/vareutvalg/varedetaljer/sku-" + product.varenummer }, "Finn på Vinmonopolet"))
+            m(".card-action", m("a", { href: "https://www.vinmonopolet.no/vareutvalg/varedetaljer/sku-" + product.varenummer }, "Finn på Vinmonopolet"))
         );
     }
 };
