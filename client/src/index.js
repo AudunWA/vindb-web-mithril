@@ -4,6 +4,7 @@ var Home = require("./views/home/Home");
 var ProductList = require("./views/productlist/ProductList");
 var Product = require("./views/product/Product");
 var PriceChanges = require("./views/changes/PriceChanges");
+var PriceChangesOld = require("./views/changes/PriceChangesOld");
 var AllChanges = require("./views/changes/AllChanges");
 
 // Define routes. Second argument is default/redirect route
@@ -31,5 +32,6 @@ m.route(document.body, "/", {
         }
     },
     "/pricechanges": PriceChanges,
+    "/pricechangesold": PriceChangesOld,
     "/history": AllChanges
 });
