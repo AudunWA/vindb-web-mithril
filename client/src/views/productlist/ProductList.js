@@ -32,7 +32,7 @@ function onClickTableHeader(e) {
 var ProductList = {
     queryString: "",
     oninit: function (vnode) {
-        queryString = m.route.param("query");
+        this.queryString = m.route.param("query");
         Product.loadList(m.route.param());
     },
     oncreate: function (vnode) {
@@ -55,13 +55,13 @@ var ProductList = {
                             //     Product.loadList(queryString);
                             // },
                             onchange: function (e) {
-                                queryString = e.target.value;
+                                this.queryString = e.target.value;
                             },
                             onsubmit: onSearch
                         },
                         m(".row",
                             m(".input-field col s12",
-                                m("input#search[type='text'][required][placeholder='Søketekst']", { value: queryString })
+                                m("input#search[type='text'][required][placeholder='Søketekst']", { value: this.queryString })
                                 //m("label.label-icon[for='search']",
                                 //m("i.material-icons", "search"))
 

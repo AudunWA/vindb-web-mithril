@@ -17,10 +17,13 @@
     "jquery": "^3.2.1",
     "jquery-match-height": "^0.7.2",
     "mithril": "^1.1.1",
-    "moment": "^2.18.1"
+    "moment": "^2.22.2"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
     "extract-text-webpack-plugin": "^2.1.2",
-    "webpack": "^2.6.1"
+    "webpack": "^2.7.0"
   }
 }
