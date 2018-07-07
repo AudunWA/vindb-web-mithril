@@ -89,40 +89,40 @@ var ExtendedProductInfoCard = {
     product: null,
     getValueMap: function () {
         var values = [];
-        if(product.passer_til_1 !== null) {
-            var fitsWith = product.passer_til_1;
-            if(product.passer_til_2 !== null) {
-                fitsWith += ", " + product.passer_til_2;
+        if(this.product.passer_til_1 !== null) {
+            var fitsWith = this.product.passer_til_1;
+            if(this.product.passer_til_2 !== null) {
+                fitsWith += ", " + this.product.passer_til_2;
             }
-            if(product.passer_til_3 !== null) {
-                fitsWith += ", " + product.passer_til_3;
+            if(this.product.passer_til_3 !== null) {
+                fitsWith += ", " + this.product.passer_til_3;
             }
             values.push({ name: "Passer til: ", value: fitsWith });
         }
 
-        if(product.argang !== null) {
-            values.push({ name: "År: ", value: product.argang});
+        if(this.product.argang !== null) {
+            values.push({ name: "År: ", value: this.product.argang});
         }
-        if(product.rastoff !== null) {
-            values.push({ name: "Råstoff: ", value: product.rastoff});
+        if(this.product.rastoff !== null) {
+            values.push({ name: "Råstoff: ", value: this.product.rastoff});
         }
-        if(product.metode !== null) {
-            values.push({ name: "Metode: ", value: product.metode});
+        if(this.product.metode !== null) {
+            values.push({ name: "Metode: ", value: this.product.metode});
         }
-        if(product.sukker !== null) {
-            values.push({ name: "Sukker: ", value: product.sukker + " gram per liter"});
+        if(this.product.sukker !== null) {
+            values.push({ name: "Sukker: ", value: this.product.sukker + " gram per liter"});
         }
-        if(product.syre !== null) {
-            values.push({ name: "Syre: ", value: product.syre + " gram per liter"});
+        if(this.product.syre !== null) {
+            values.push({ name: "Syre: ", value: this.product.syre + " gram per liter"});
         }
-        if(product.lagringsgrad !== null) {
-            values.push({ name: "Lagringsgrad: ", value: product.lagringsgrad });
+        if(this.product.lagringsgrad !== null) {
+            values.push({ name: "Lagringsgrad: ", value: this.product.lagringsgrad });
         }
         return values;
     },
     view: function (vnode) {
-        product = vnode.attrs.product;
-        if(product === null) return null;
+        this.product = vnode.attrs.product;
+        if(this.product === null) return null;
 
         return m(".card blue",
             m(".card-content white-text",
@@ -158,7 +158,7 @@ var ProductView = {
         productId = vnode.attrs.id;
         tab = vnode.attrs.tab;
         console.log(tab);
-        Product.loadCurrent(productId);
+        Product.loadCurrent(productId).then(() => this.product = Product.currentProduct);
     },
     view: function (vnode) {
         console.log("view");
@@ -167,19 +167,19 @@ var ProductView = {
             m(Tabs, { tabs: tabs }),
             m(".container",
                 m("#main_tab.col m12 s12",
-                    m(".row",
+                    this.product ? m(".row",
                         m(".col m6 s12",
                             m(ProductInfoCard, { product: Product.currentProduct })
                         ),
                         m(".col m6 s12",
                             m(ExtendedProductInfoCard, { product: Product.currentProduct }))
-                    )
+                    ) : null
                 ),
                 m("#price_tab.col m12 s12",
-                    m(".row", m(PriceHistoryCard, { product: Product.currentProduct }))
+                    this.product ? m(".row", m(PriceHistoryCard, { product: Product.currentProduct })) : null
                 ),
                 m("#history_tab.col m12 s12",
-                    m(ProductHistoryCard, { history: Product.currentChanges })
+                    this.product ? m(ProductHistoryCard, { history: Product.currentChanges }) : null
                 )
             )
         );

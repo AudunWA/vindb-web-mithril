@@ -27,7 +27,7 @@ var PriceHistoryCard = {
 function initChart(data) {
     // TODO: Move to models?
     var proceededData = doData(data);
-    config = {
+    const config = {
         type: 'line',
         data: {
             datasets: [
