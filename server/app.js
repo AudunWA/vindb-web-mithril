@@ -57,6 +57,11 @@ app.use("/rest/products", restProducts);
 app.use("/rest/pricechanges", priceChanges);
 app.use("/rest/changes", changes);
 
+// SPA
+app.use("*", function(req, resp) {
+    resp.sendFile("index.html", { root: path.join(__dirname, '../client') });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

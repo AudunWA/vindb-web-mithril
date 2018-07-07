@@ -7,6 +7,7 @@ var PriceChanges = require("./views/changes/PriceChanges");
 var AllChanges = require("./views/changes/AllChanges");
 
 // Define routes. Second argument is default/redirect route
+m.route.prefix("");
 m.route(document.body, "/", {
     "/": {
         render: function () {
