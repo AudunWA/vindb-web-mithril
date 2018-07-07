@@ -10,6 +10,8 @@ var ProductHistoryCard = require("./ProductHistoryCard");
 moment.locale("nb");
 
 var productId;
+var tabsInstance;
+var tab;
 
 const tabs = [
     { isActive: true, title: "Produkt", href: "#main_tab"},
@@ -18,9 +20,9 @@ const tabs = [
 ];
 
 var Tabs = {
-    onupdate: function () {
+    oncreate: function () {
         // Make sure tabs get initialized
-        $("ul.tabs").tabs({ onShow: updateTabInUrl });
+        tabsInstance = M.Tabs.init(document.querySelectorAll(".tabs"), { onShow: updateTabInUrl });
     },
     view: function (vnode) {
         return m(".nav-content",
@@ -36,21 +38,21 @@ function updateTabInUrl(tab) {
     var data = m.route.param();
 
     var tabId;
-    switch (tab.selector) {
-        // case "#main_tab":
+    switch (tab.id) {
+        // case "main_tab":
         // default:
         //     tabId = "main";
         //     break;
-        case "#price_tab":
+        case "price_tab":
             tabId = "price";
             break;
-        case "#history_tab":
+        case "history_tab":
             tabId = "history";
             break;
     }
 
     if(data["tab"] !== tabId) {
-        if(!tabId) {
+        if(tabId == null) {
             delete data.tab;
             m.route.set("/product/:id", data);
         } else {
@@ -147,7 +149,8 @@ function selectCorrectTab() {
             tabId = "history_tab";
             break;
     }
-    $("ul.tabs").tabs("select_tab", tabId);
+    const instance = M.Tabs.getInstance(document.querySelector(".tabs"));
+    instance.select(tabId);
 }
 
 var ProductView = {

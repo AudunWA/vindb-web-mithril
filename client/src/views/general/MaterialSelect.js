@@ -2,7 +2,8 @@ var m = require("mithril");
 
 var MaterialSelect = {
     oncreate: function () {
-        $('select').material_select();
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
     },
     view: function (vnode) {
         var selectAttributes = vnode.attrs.multiple ? { multiple: "true"} : { };

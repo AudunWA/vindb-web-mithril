@@ -20,9 +20,10 @@ var ProductList = {
     oninit: function (vnode) {
         queryString = m.route.param("query");
         Product.loadList(m.route.param());
-        $(document).ready(function() {
-            $('select').material_select();
-        });
+    },
+    oncreate: function (vnode) {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
     },
     view: function () {
         return m(".container", [
@@ -45,10 +46,11 @@ var ProductList = {
                         },
                         m(".row",
                             m(".input-field col s12",
-                                m("input[id='search'][type='search'][required]", { value: queryString }),
-                                m("label.label-icon[for='search']",
-                                    m("i.material-icons", "search")
-                                )
+                                m("input#search[type='text'][required][placeholder='Søketekst']", { value: queryString })
+                                //m("label.label-icon[for='search']",
+                                //m("i.material-icons", "search"))
+
+
                             //,
                             // m(".input-field col s6",
                             //     m("select", [

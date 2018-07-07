@@ -16,7 +16,13 @@ var Tabs = {
 module.exports = {
     oncreate: function (vnode) {
         // Make sure dropdown menu gets initialized
-        $('.dropdown-button').dropdown();
+        $(".dropdown-trigger").dropdown();
+        const elems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(elems);
+        var instances = M.Collapsible.init(document.querySelectorAll('.collapsible'));
+    },
+    onupdate: function(vnode) {
+        M.Sidenav.getInstance(document.querySelector(".sidenav")).close();
     },
     view: function (vnode) {
         return [ m("header", m("ul.dropdown-content[id='dropdown1']",
@@ -63,15 +69,15 @@ module.exports = {
                     m(".nav-wrapper",
                         [
                             //m("a.brand-logo[href='#']", "VinDB"),
+                            m("a.sidenav-trigger[data-target='side-menu'][href='#']", m("i.material-icons", "menu")),
                             m("ul.left.hide-on-med-and-down",
                                 m("li", m("a[href='/']", {oncreate: m.route.link}, "Hjem", m("i.material-icons.left", "home"))),
                                 m("li", m("a[href='/products']", {oncreate: m.route.link}, "Varer", m("i.material-icons.left", "local_drink"))),
                                 m("li", m("a[href='/history']", {oncreate: m.route.link}, "Endringer", m("i.material-icons.left", "update"))),
                                 m("li", m("a[href='/pricechanges']", {oncreate: m.route.link}, "Prisendringer", m("i.material-icons.left", "update"))),
-                                m("li", m("a.dropdown-button[data-activates='dropdown1'][href='#']", "Topplister", m("i.material-icons.right", "arrow_drop_down"), m("i.material-icons.left", "sort")))
+                                m("li", m("a.dropdown-trigger[data-target='dropdown1'][href='#!']", "Topplister", m("i.material-icons.right", "arrow_drop_down"), m("i.material-icons.left", "sort")))
                             ),
-                            m("a.button-collapse[data-activates='side-menu'][href='#']", m("i.material-icons", "menu")),
-                            m("ul.side-nav[id='side-menu']",
+                            m("ul.sidenav[id='side-menu']",
                                 [
                                     m("li.bold",
                                         m("a.waves-effect[href='/']", {oncreate: m.route.link},
