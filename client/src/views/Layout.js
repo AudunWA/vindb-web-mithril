@@ -25,35 +25,35 @@ module.exports = {
         M.Sidenav.getInstance(document.querySelector(".sidenav")).close();
     },
     view: function (vnode) {
-        return [ m("header", m("ul.dropdown-content[id='dropdown1']",
+        return [ m("header", m("ul.dropdown-content#dropdown1",
             [
                 m("li",
-                    m("a[href='/products?order_by=first_seen&amp;desc=1']", {oncreate: m.route.link},
+                    m("a[href='/products?order_by=first_seen&desc=1']", {oncreate: m.route.link},
                         "Nyeste varer"
                     )
                 ),
                 m("li",
-                    m("a[href='/products?order_by=epk&amp;desc=1']", {oncreate: m.route.link},
+                    m("a[href='/products?order_by=epk&desc=1']", {oncreate: m.route.link},
                         "Billigste Alkohol/kr"
                     )
                 ),
                 m("li",
-                    m("a[href='/products?order_by=epk&amp;above_zero=1']", {oncreate: m.route.link},
+                    m("a[href='/products?order_by=epk&above_zero=1']", {oncreate: m.route.link},
                         "Dyreste Alkohol/kr"
                     )
                 ),
                 m("li",
-                    m("a[href='/products?query_type=varetype&amp;query=vodka&amp;order_by=epk&amp;desc=1']", {oncreate: m.route.link},
+                    m("a[href='/products?query_type=varetype&query=vodka&order_by=epk&desc=1']", {oncreate: m.route.link},
                         "Billigste vodka"
                     )
                 ),
                 m("li",
-                    m("a[href='/products?query_type=varetype&amp;query=vin&amp;order_by=epk&amp;desc=1']", {oncreate: m.route.link},
+                    m("a[href='/products?query_type=varetype&query=vin&order_by=epk&desc=1']", {oncreate: m.route.link},
                         "Billigste vin"
                     )
                 ),
                 m("li",
-                    m("a[href='/products?query_type=varetype&amp;query=øl&amp;order_by=epk&amp;desc=1']", {oncreate: m.route.link},
+                    m("a[href='/products?query_type=varetype&query=øl&order_by=epk&desc=1']", {oncreate: m.route.link},
                         "Billigste øl"
                     )
                 ),
@@ -125,32 +125,32 @@ module.exports = {
                                                         m("ul",
                                                             [
                                                                 m("li",
-                                                                    m("a[href='/products?order_by=first_seen&amp;desc=1']", {oncreate: m.route.link},
+                                                                    m("a[href='/products?order_by=first_seen&desc=1']", {oncreate: m.route.link},
                                                                         "Nyeste varer"
                                                                     )
                                                                 ),
                                                                 m("li",
-                                                                    m("a[href='/products?order_by=epk&amp;desc=1']", {oncreate: m.route.link},
+                                                                    m("a[href='/products?order_by=epk&desc=1']", {oncreate: m.route.link},
                                                                         "Billigste Alkohol/kr"
                                                                     )
                                                                 ),
                                                                 m("li",
-                                                                    m("a[href='/products?order_by=epk&amp;above_zero=1']", {oncreate: m.route.link},
+                                                                    m("a[href='/products?order_by=epk&above_zero=1']", {oncreate: m.route.link},
                                                                         "Dyreste Alkohol/kr"
                                                                     )
                                                                 ),
                                                                 m("li",
-                                                                    m("a[href='/products?query_type=varetype&amp;query=vodka&amp;order_by=epk&amp;desc=1']", {oncreate: m.route.link},
+                                                                    m("a[href='/products?query_type=varetype&query=vodka&order_by=epk&desc=1']", {oncreate: m.route.link},
                                                                         "Billigste vodka"
                                                                     )
                                                                 ),
                                                                 m("li",
-                                                                    m("a[href='/products?query_type=varetype&amp;query=vin&amp;order_by=epk&amp;desc=1']", {oncreate: m.route.link},
+                                                                    m("a[href='/products?query_type=varetype&query=vin&order_by=epk&desc=1']", {oncreate: m.route.link},
                                                                         "Billigste vin"
                                                                     )
                                                                 ),
                                                                 m("li",
-                                                                    m("a[href='/products?query_type=varetype&amp;query=øl&amp;order_by=epk&amp;desc=1']", {oncreate: m.route.link},
+                                                                    m("a[href='/products?query_type=varetype&query=øl&order_by=epk&desc=1']", {oncreate: m.route.link},
                                                                         "Billigste øl"
                                                                     )
                                                                 ),
