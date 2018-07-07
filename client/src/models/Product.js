@@ -17,6 +17,11 @@ var Product = {
             data: parameters
         })
             .then(function (result) {
+                result.products.forEach(product => {
+                    if (product.literspris == null) {
+                        product.literspris = 0;
+                    }
+                });
                 Product.list = result.products;
                 Product.productsPerPage = result.entriesPerPage;
                 Product.currentPage = result.currentPage;

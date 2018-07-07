@@ -5,25 +5,24 @@ var Chart = require('chart.js');
 var Product = require("../../models/Product");
 
 var PriceHistoryCard = {
+    inited: false,
     chart: null,
     oncreate: function (vnode) {
     },
     view: function (vnode) {
-        if(!inited) {
+        if(!this.inited) {
             var product = vnode.attrs.product;
             if (product === null) return;
 
             Product.loadPriceHistory(product.varenummer).then(initChart);
         }
-        inited = true;
+        this.inited = true;
         return m("div.s12#chart-container",
             m("h2", "Prisutvikling"),
             m("canvas#price_chart")
         );
     }
 };
-
-var inited = false;
 
 function initChart(data) {
     // TODO: Move to models?
