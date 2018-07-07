@@ -1,6 +1,9 @@
 // Global debug flag
 debug = typeof v8debug === 'object';
 
+console.log("VinDB server starting!");
+console.log("Debug: " + debug);
+
 var http = require('http');
 var express = require('express');
 var path = require('path');

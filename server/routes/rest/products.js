@@ -92,6 +92,11 @@ router.get('/', function(req, res, next) {
                 query = squelQuery.toParam();
                 connection.query(query.text, query.values, function(err, rows, productFields) {
                     connection.release();
+                    rows.forEach((product) => {
+                        if (product.literspris == null) {
+                            product.literspris = product.pris;
+                        }
+                    });
                     res.json({products: rows, productsPerPage: ENTRIES_PER_PAGE, currentPage: page, pageCount: pageCount});
                 });
             });
