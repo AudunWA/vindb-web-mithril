@@ -49,7 +49,8 @@ router.get('/', function(req, res, next) {
 
     // Custom order
     if (req.query.order_by && ALLOWED_ORDER_VALUES.indexOf(req.query.order_by) !== -1) {
-        squelQuery.order(req.query.order_by, !req.query.desc);
+        const ascending = !req.query.desc || req.query.desc === "false";
+        squelQuery.order(req.query.order_by, ascending);
     }
 
     // No alcohol free beverages
