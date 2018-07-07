@@ -6,7 +6,7 @@ var PriceChange = {
     loadPriceChanges: function () {
         return m.request({
             method: "GET",
-            url: "rest/pricechanges"
+            url: "/rest/pricechanges"
         })
             .then(function (result) {
                 PriceChange.list = result;

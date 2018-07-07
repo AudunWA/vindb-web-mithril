@@ -13,7 +13,7 @@ var Product = {
     loadList: function (parameters) {
         return m.request({
             method: "GET",
-            url: "rest/products",
+            url: "/rest/products",
             data: parameters
         })
             .then(function (result) {
@@ -34,7 +34,7 @@ var Product = {
     loadCurrent: function (productId) {
         return m.request({
             method: "GET",
-            url: "rest/products/" + productId
+            url: "/rest/products/" + productId
         })
             .then(function (result) {
                 Product.currentProduct = result.product;
@@ -47,7 +47,7 @@ var Product = {
     loadPriceHistory: function(productId) {
         return m.request({
             method: "GET",
-            url: "rest/pricehistory/" + productId
+            url: "/rest/pricehistory/" + productId
         })
             .catch(function (e) {
                 Product.error = e.message;

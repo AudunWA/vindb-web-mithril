@@ -10,7 +10,7 @@ var Change = {
         }
         return m.request({
             method: "GET",
-            url: "rest/changes",
+            url: "/rest/changes",
             data: data
         })
             .then(function (result) {
