@@ -3,18 +3,6 @@ var Product = require("../../models/Product");
 var Pagination = require("./Pagination");
 var moment = require("moment");
 
-function onSearch(e) {
-    e.preventDefault();
-    var params = m.route.param();
-
-    if(typeof queryString !== "undefined") {
-        params.query = queryString;
-    }
-
-    m.route.set("/products", params);
-    //Product.loadList(m.route.param());
-}
-
 function onClickTableHeader(e) {
     const queryParameters = m.route.param();
     const newField = e.target.dataset.field;
@@ -31,6 +19,18 @@ function onClickTableHeader(e) {
 
 var ProductList = {
     queryString: "",
+    onSearch(e) {
+        e.preventDefault();
+        var params = m.route.param();
+
+        if(this.queryString != null) {
+            params.query = this.queryString;
+            delete params.page;
+        }
+
+        m.route.set("/products", params);
+        Product.loadList(m.route.param());
+    },
     oninit: function (vnode) {
         this.queryString = m.route.param("query");
         Product.loadList(m.route.param());
@@ -54,10 +54,10 @@ var ProductList = {
                             //     }
                             //     Product.loadList(queryString);
                             // },
-                            onchange: function (e) {
+                            onchange: (e) => {
                                 this.queryString = e.target.value;
                             },
-                            onsubmit: onSearch
+                            onsubmit: this.onSearch.bind(this)
                         },
                         m(".row",
                             m(".input-field col s12",

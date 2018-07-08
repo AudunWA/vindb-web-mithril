@@ -6,9 +6,11 @@ function onButtonClick(e) {
     e.preventDefault();
 
     var pageId = getCorrectPage(e.target);
-    console.log(pageId);
-    m.route.set("/products", {query: queryString, page: pageId});
-    Product.loadList({query: queryString, page: pageId});
+    const newParams = m.route.param();
+    newParams.page = pageId;
+
+    m.route.set("/products", newParams);
+    Product.loadList({query: newParams.query, page: pageId});
 }
 
 function getCorrectPage(target) {
@@ -53,48 +55,24 @@ function generatePageNodes() {
     }
     return nodes;
 }
-var test = null;
 var Pagination = {
     view: function () {
-        console.log("view");
+        // TODO: Disable all buttons while searching
         return m("ul.pagination", [
             m("li", { class: Product.currentPage === 1 ? "disabled" : "waves-effect"}, [
                 m("a.page-first", Product.currentPage === 1 ? {} : { href: "/products", oncreate: m.route.link, onclick: onButtonClick }, m("i.material-icons", "first_page"))
             ]),
             m("li", { class: Product.currentPage === 1 ? "disabled" : "waves-effect"}, [
-                m("a.page-previous", Product.currentPage === 1 ? {} : { test: "tsd", href: "/#!/products?page=" + (Product.currentPage - 1), onclick: onButtonClick }, m("i.material-icons", "chevron_left"))
+                m("a.page-previous", Product.currentPage === 1 ? {} : { test: "tsd", href: "/products?page=" + (Product.currentPage - 1), onclick: onButtonClick }, m("i.material-icons", "chevron_left"))
             ]),
             generatePageNodes(),
             m("li", { class: Product.currentPage === Product.pageCount ? "disabled" : "waves-effect"}, [
-                m("a.page-next", Product.currentPage === Product.pageCount ? {} : { href: "/#!/products?page=" + (Product.currentPage + 1), onclick: onButtonClick }, m("i.material-icons", "chevron_right"))
+                m("a.page-next", Product.currentPage === Product.pageCount ? {} : { href: "/products?page=" + (Product.currentPage + 1), onclick: onButtonClick }, m("i.material-icons", "chevron_right"))
             ]),
             m("li", { class: Product.currentPage === Product.pageCount ? "disabled" : "waves-effect"}, [
-                m("a.page-last", Product.currentPage === Product.pageCount? {} : { href: "/#!/products?page=" + Product.pageCount, onclick: onButtonClick }, m("i.material-icons", "last_page"))
+                m("a.page-last", Product.currentPage === Product.pageCount? {} : { href: "/products?page=" + Product.pageCount, onclick: onButtonClick }, m("i.material-icons", "last_page"))
             ])
         ]);
-    },
-    oninit: function(vnode) {
-        console.log("initialized")
-    },
-    oncreate: function(vnode) {
-        console.log("DOM created")
-    },
-    onupdate: function(vnode) {
-        console.log("DOM updated")
-        if(m.route.param() !== test) {
-            Product.loadList(m.route.param());
-        }
-        test = m.route.param();
-    },
-    onbeforeremove: function(vnode) {
-        console.log("exit animation can start")
-        return new Promise(function(resolve) {
-            // call after animation completes
-            resolve()
-        })
-    },
-    onremove: function(vnode) {
-        console.log("removing DOM element")
     }
 };
 
