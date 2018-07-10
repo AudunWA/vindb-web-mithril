@@ -15,6 +15,7 @@ function onClickTableHeader(e) {
     }
     queryParameters.order_by = newField;
     m.route.set("/products", queryParameters);
+    Product.loadList(m.route.param());
 }
 
 var ProductList = {
