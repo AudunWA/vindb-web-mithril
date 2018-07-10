@@ -7,6 +7,13 @@ var PriceChanges = require("./views/changes/PriceChanges");
 var PriceChangesOld = require("./views/changes/PriceChangesOld");
 var AllChanges = require("./views/changes/AllChanges");
 
+// Define GA if adblock
+if(window.ga == null) {
+    window.ga = function(args) {
+
+    };
+}
+
 // Define routes. Second argument is default/redirect route
 m.route.prefix("");
 m.route(document.body, "/", {
