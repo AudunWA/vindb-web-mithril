@@ -108,7 +108,7 @@ router.get('/', function(req, res, next) {
 // Zero-based page
 function setLimit(query, page) {
     query.offset(page * ENTRIES_PER_PAGE);
-    query.limit((page + 1) * ENTRIES_PER_PAGE - 1);
+    query.limit(ENTRIES_PER_PAGE);
 }
 
 function isInt(value) {

@@ -15,11 +15,10 @@ var Tabs = {
 
 module.exports = {
     oncreate: function (vnode) {
-        // Make sure dropdown menu gets initialized
-        $(".dropdown-trigger").dropdown();
-        const elems = document.querySelectorAll('.sidenav');
-        M.Sidenav.init(elems);
-        var instances = M.Collapsible.init(document.querySelectorAll('.collapsible'));
+        // Init Materialize components
+        M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
+        M.Sidenav.init(document.querySelectorAll('.sidenav'));
+        M.Collapsible.init(document.querySelectorAll('.collapsible'));
     },
     onupdate: function(vnode) {
         M.Sidenav.getInstance(document.querySelector(".sidenav")).close();
