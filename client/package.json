@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch",
-    "build": "webpack -p",
-    "postinstall": "webpack -p --debug --progress"
+    "build": "webpack",
+    "postinstall": "webpack --debug --progress"
   },
   "keywords": [],
   "author": "",
@@ -20,10 +20,12 @@
     "moment": "^2.22.2"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.0.0-beta.55",
+    "babel-loader": "^8.0.0-beta",
+    "@babel/preset-env": "^7.0.0-beta.55",
     "extract-text-webpack-plugin": "^2.1.2",
-    "webpack": "^2.7.0"
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
+    "uglifyjs-webpack-plugin": "^1.2.7"
   }
 }

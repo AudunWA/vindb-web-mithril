@@ -1,18 +1,23 @@
+
 module.exports = {
     entry: './src/index.js',
     output: {
-        filename: './bin/app.js'
+        filename: '../bin/app.js'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['env']
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
                 }
             }
         ]
     },
-    devtool: 'source-map'
+    mode: 'production',
+    devtool: 'source-map',
 };
