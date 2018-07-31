@@ -10,7 +10,7 @@ function onButtonClick(e) {
     newParams.page = pageId;
 
     m.route.set("/products", newParams);
-    Product.loadList({query: newParams.query, page: pageId});
+    Product.loadList(m.route.param());
 }
 
 function getCorrectPage(target) {
