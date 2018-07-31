@@ -12,6 +12,9 @@ var PriceChanges = {
     oninit: function () {
         PriceChange.loadPriceChanges();
     },
+    oncreate: function () {
+        document.title = "Prisendringer - VinDB";
+    },
     // oncreate: function () {
     //     console.log("Create");
     //     $('.sample').matchHeight({ byRow: false});

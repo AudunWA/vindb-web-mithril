@@ -188,12 +188,15 @@ var ProductView = {
         );
     },
     oncreate: function(vnode) {
-        console.log("DOM created")
+        console.log("DOM created");
     },
     onupdate: function(vnode) {
         tab = vnode.attrs.tab;
         selectCorrectTab();
         console.log("onupdate")
+        if(this.product != null) {
+            document.title = `${this.product.varenavn} - VinDB`;
+        }
     },
     onbeforeremove: function(vnode) {
         console.log("exit animation can start")

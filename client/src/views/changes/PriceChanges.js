@@ -22,6 +22,9 @@ var PriceChanges = {
     //     console.log("Create");
     //     $('.sample').matchHeight({ byRow: false});
     // },
+    oncreate: function () {
+        document.title = "Prisendringer - VinDB";
+    },
     onupdate: function() {
         console.log("update");
         //if(first) {

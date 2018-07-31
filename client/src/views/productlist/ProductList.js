@@ -39,6 +39,7 @@ var ProductList = {
     oncreate: function (vnode) {
         var elems = document.querySelectorAll('select');
         var instances = M.FormSelect.init(elems);
+        document.title = "Produkter - VinDB";
     },
     view: function () {
         return m(".container", [

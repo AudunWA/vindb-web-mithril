@@ -12,13 +12,16 @@ function onSearchClick(e) {
     }
 }
 var Home = {
+    oncreate: function () {
+        document.title = "VinDB";
+    },
     view: function () {
         return m(".center-align.container",
             [
                 m("h1", "VinDB"),
                 m("h5",
                     [
-                        m("p", "VinDB er en tjeneste som tilbyr oversikt over alle endringer gjort i Vinmonopolets vareutvalg. Vi sjekker daglig hvilke endringer Vinmonopolet gjør, og man kan dermed se alt fra prisendringer til rettinger av skrivefeil!\n"),
+                        m("p", "Vi tilbyr en oversikt over alle endringer gjort i Vinmonopolets vareutvalg. Vi sjekker daglig varenes endringer, og holder styr på alt fra prisendringer til rettinger av skrivefeil!\n"),
                         m("p", "Skriv i søkefeltet, eller velg en kategori fra toppmenyen!")
                     ]
                 ),

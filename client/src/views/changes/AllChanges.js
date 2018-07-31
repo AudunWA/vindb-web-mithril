@@ -28,6 +28,9 @@ function onFilterChange(e) {
 
 var PriceChanges = {
     oninit: function() { loadPriceChanges() },
+    oncreate: function () {
+        document.title = "Endringer - VinDB";
+    },
     onupdate: function() {
         console.log("update");
     },
