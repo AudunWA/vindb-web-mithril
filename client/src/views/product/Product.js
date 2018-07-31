@@ -67,19 +67,22 @@ var ProductInfoCard = {
         var product = vnode.attrs.product;
         if(product === null) return null;
 
-        return m(".card indigo darken-1",
-            m(".card-content white-text",
+        return m(".card white darken-1",
+            m(".product-card",
+            m("img", { src: `https://bilder.vinmonopolet.no/cache/1200x1200-0/${product.varenummer}-1.jpg`, style: "height: 35vh"}),
+            m(".card-content black-text",
                 m("span.card-title", product.varenavn),
                 m("p", m("b", "Varenummer: "), product.varenummer),
                 m("p", m("b", "Alkoholprosent: "), product.alkohol + "%"),
                 m("p", m("b", "Volum: "), product.volum + " liter"),
                 m("p", m("b", "Pris: "), product.pris.toFixed(2) + ",-"),
                 m("p", m("b", "Literspris: "), (product.pris / product.volum).toFixed(2) + ",-"),
-                m("p", m("b", "Etanol per krone (EPK): "), ((product.alkohol / 100 * product.volum) / product.pris * 1000000).toFixed(3) + " mikroliter"),
+                m("p", m("b", "Alkohol per krone: "), ((product.alkohol / 100 * product.volum) / product.pris * 1000000).toFixed(3) + " mikroliter"),
                 m("p", m("b", "Først sett: "), moment(product.first_seen).format('D. MMMM YYYY')),
                 m("p", m("b", "Sist sett: "), moment(product.last_seen).format('D. MMMM YYYY'))
-            ),
-            m(".card-action", m("a", { href: "https://www.vinmonopolet.no/vareutvalg/varedetaljer/sku-" + product.varenummer }, "Finn på Vinmonopolet"))
+            )),
+            m(".card-action grey lighten-4", m("a.vinmonopolet-link", { href: "https://www.vinmonopolet.no/vareutvalg/varedetaljer/sku-" + product.varenummer }, "Finn på Vinmonopolet"))
+
         );
     }
 };
@@ -126,7 +129,7 @@ var ExtendedProductInfoCard = {
 
         return m(".card blue",
             m(".card-content white-text",
-                m("span.card-title", "Tillegsinformasjon"),
+                m("span.card-title", "Tilleggsinformasjon"),
                 this.getValueMap().map(function (pair) {
                     return m("p", m("b", pair.name), pair.value);
                 })

@@ -39,11 +39,24 @@ body {
 
 main {
     flex: 1 0 auto;
+    padding-bottom: 10vh;
 }
 
 .valign-github {
     vertical-align: middle;
     padding-right: 0.75em;
+}
+
+.product-card {
+    display: flex;
+}
+
+.vinmonopolet-link {
+    color: black !important;
+}
+
+.vinmonopolet-link:hover {
+    color: #808080 !important;
 }
 
 canvas {
