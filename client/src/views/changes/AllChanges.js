@@ -28,18 +28,8 @@ function onFilterChange(e) {
 
 var PriceChanges = {
     oninit: function() { loadPriceChanges() },
-    // oncreate: function () {
-    //     console.log("Create");
-    //     $('.sample').matchHeight({ byRow: false});
-    // },
     onupdate: function() {
         console.log("update");
-        //if(first) {
-        $('.sample').matchHeight({byRow: false});
-        //$('.sample2').matchHeight({byRow: false});
-        //  first = false;
-        //}
-        //$.fn.matchHeight._update();
     },
     view: function () {
         if(loading) {
