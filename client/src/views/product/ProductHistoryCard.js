@@ -20,8 +20,7 @@ var ProductHistoryCard = {
                     var beforeValue = row.name === "Pris" ? "" : "\"";
                     var afterValue = row.name === "Pris" ? ",-" : "\"";
 
-                    if(!row.old_value) {
-                        // No old value
+                    if(row.old_value == null || row.old_value.length === 0) {
                         vnodes.push(m("li.collection-item", m("b", row.name), " satt til " + beforeValue + row.new_value + afterValue));
                     } else {
                         vnodes.push(m("li.collection-item", m("b", row.name), " endret fra " + beforeValue + row.old_value + afterValue + " til " + beforeValue + row.new_value + afterValue));

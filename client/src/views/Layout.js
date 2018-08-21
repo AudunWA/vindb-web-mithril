@@ -55,11 +55,6 @@ module.exports = {
                     m("a[href='/products?query_type=varetype&query=øl&order_by=epk&desc=1']", {oncreate: m.route.link},
                         "Billigste øl"
                     )
-                ),
-                m("li",
-                    m("a[href='/history?field_type=4']", {oncreate: m.route.link},
-                        "Prisendringer"
-                    )
                 )
             ]
             ),
@@ -73,41 +68,15 @@ module.exports = {
                                 m("li", m("a[href='/']", {oncreate: m.route.link}, "Hjem", m("i.material-icons.left", "home"))),
                                 m("li", m("a[href='/products']", {oncreate: m.route.link}, "Varer", m("i.material-icons.left", "local_drink"))),
                                 m("li", m("a[href='/history']", {oncreate: m.route.link}, "Endringer", m("i.material-icons.left", "update"))),
-                                m("li", m("a[href='/pricechanges']", {oncreate: m.route.link}, "Prisendringer", m("i.material-icons.left", "update"))),
+                                m("li", m("a[href='/pricechanges']", {oncreate: m.route.link}, "Prisendringer", m("i.material-icons.left", "attach_money"))),
                                 m("li", m("a.dropdown-trigger[data-target='dropdown1'][href='#!']", "Topplister", m("i.material-icons.right", "arrow_drop_down"), m("i.material-icons.left", "sort")))
                             ),
                             m("ul.sidenav[id='side-menu']",
                                 [
-                                    m("li.bold",
-                                        m("a.waves-effect[href='/']", {oncreate: m.route.link},
-                                            [
-                                                "Hjem",
-                                                m("i.material-icons.left",
-                                                    "home"
-                                                )
-                                            ]
-                                        )
-                                    ),
-                                    m("li.bold",
-                                        m("a.waves-effect[href='/products']", {oncreate: m.route.link},
-                                            [
-                                                "Varer",
-                                                m("i.material-icons.left",
-                                                    "local_drink"
-                                                )
-                                            ]
-                                        )
-                                    ),
-                                    m("li.bold",
-                                        m("a.waves-effect[href='/history']", {oncreate: m.route.link},
-                                            [
-                                                "Endringer",
-                                                m("i.material-icons.left",
-                                                    "update"
-                                                )
-                                            ]
-                                        )
-                                    ),
+                                    m("li.bold", m("a.waves-effect[href='/']", {oncreate: m.route.link}, "Hjem", m("i.material-icons.left", "home"))),
+                                    m("li.bold", m("a.waves-effect[href='/products']", {oncreate: m.route.link}, "Varer", m("i.material-icons.left", "local_drink"))),
+                                    m("li.bold", m("a.waves-effect[href='/history']", {oncreate: m.route.link}, "Endringer", m("i.material-icons.left", "update"))),
+                                    m("li.bold", m("a.waves-effect[href='/pricechanges']", {oncreate: m.route.link}, "Prisendringer", m("i.material-icons.left", "attach_money"))),
                                     m("li.bold.no-padding",
                                         m("ul.collapsible.collapsible-accordion",
                                             m("li",
@@ -151,11 +120,6 @@ module.exports = {
                                                                 m("li",
                                                                     m("a[href='/products?query_type=varetype&query=øl&order_by=epk&desc=1']", {oncreate: m.route.link},
                                                                         "Billigste øl"
-                                                                    )
-                                                                ),
-                                                                m("li",
-                                                                    m("a[href='/history?field_type=4']", {oncreate: m.route.link},
-                                                                        "Prisendringer"
                                                                     )
                                                                 )
                                                             ]
