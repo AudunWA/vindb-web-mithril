@@ -113,10 +113,10 @@ var ExtendedProductInfoCard = {
             values.push({ name: "Metode: ", value: this.product.metode});
         }
         if(this.product.sukker !== null) {
-            values.push({ name: "Sukker: ", value: this.product.sukker + " gram per liter"});
+            values.push({ name: "Sukker: ", value: this.product.sukker/100 + " gram per liter"});
         }
         if(this.product.syre !== null) {
-            values.push({ name: "Syre: ", value: this.product.syre + " gram per liter"});
+            values.push({ name: "Syre: ", value: this.product.syre/100 + " gram per liter"});
         }
         if(this.product.lagringsgrad !== null) {
             values.push({ name: "Lagringsgrad: ", value: this.product.lagringsgrad });
