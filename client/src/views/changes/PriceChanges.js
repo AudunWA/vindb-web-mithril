@@ -3,8 +3,6 @@ const moment = require("moment");
 
 const PriceChange = require("../../models/PriceChange");
 const Layout = require("../Layout");
-
-let lastDate;
 let loading = true;
 
 function loadPriceChanges() {
@@ -27,6 +25,8 @@ const PriceChanges = {
                     m(".progress", m(".indeterminate"))
                 ));
         }
+        let lastDate = new Date(1970, 1, 1);
+
         return m(Layout, m(".container",
             m("h2", "Prisendringer"),
             m("ul.collection.with-header",
@@ -44,7 +44,7 @@ const PriceChanges = {
                     const percent = Math.trunc(priceDifference.percent - 100);
 
                     if (percent === 0) {
-                        return null;
+                        return vnodes;
                     }
                     vnodes.push(m("li.collection-item.avatar",
                         m("i", {class: "material-icons circle " + (percent > 0 ? "red" : "green")}, "arrow_" + (percent > 0 ? "upward" : "downward")),
