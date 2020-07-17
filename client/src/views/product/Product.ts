@@ -82,7 +82,9 @@ const ProductInfoCard = {
         if (product === null) return null;
 
         setMetaDescription(
-            `Navn: ${product.varenavn}; ${getExtendedProductMetadata(product)
+            `${product.varenavn}: ${product.smak}${
+                product.smak.endsWith(".") ? "" : "."
+            } ${getExtendedProductMetadata(product)
                 .map(({ name, value }) => name + value)
                 .join("; ")}`,
         );
@@ -99,7 +101,7 @@ const ProductInfoCard = {
                 m(
                     ".card-content black-text",
                     m("span.card-title", product.varenavn),
-                    m("p", m("b", "Varenummer: "), product.varenummer),
+                    m("p", { style: { marginBottom: "20px" } }, product.smak),
                     m("p", m("b", "Alkoholprosent: "), product.alkohol + "%"),
                     m("p", m("b", "Volum: "), product.volum + " liter"),
                     m("p", m("b", "Pris: "), product.pris.toFixed(2) + ",-"),
