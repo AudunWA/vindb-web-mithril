@@ -63,5 +63,5 @@ typings/
 # WebPack bin
 client/bin
 
-client/dist/main.js
+client/dist
 server/dist
