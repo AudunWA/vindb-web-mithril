@@ -31,8 +31,7 @@ if (app.get("env") === "development") {
   config();
 }
 
-app.use(compression);
-app.set("view engine", "jade");
+app.use(compression());
 
 // set mysql config
 export const pool = mysql.createPool({
