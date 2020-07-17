@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "tsc && node dist/app.js",
-    "dev": "tsc && node --inspect dist/app.js",
-    "postinstall": "tsc"
+    "dev": "tsc && node --inspect dist/app.js"
   },
   "dependencies": {
     "async": "^2.6.1",
