@@ -9,7 +9,6 @@ import sitemap from "./routes/sitemap";
 import http from "http";
 
 import express from "express";
-
 import priceChanges from "./routes/rest/pricechanges";
 import restProducts from "./routes/rest/products";
 import mysql from "mysql";
@@ -23,6 +22,8 @@ import { config } from "dotenv";
 
 import { promisify } from "util";
 
+import compression from "compression";
+
 console.log("VinDB server starting!");
 const app = express();
 if (app.get("env") === "development") {
@@ -30,6 +31,7 @@ if (app.get("env") === "development") {
   config();
 }
 
+app.use(compression);
 app.set("view engine", "jade");
 
 // set mysql config
