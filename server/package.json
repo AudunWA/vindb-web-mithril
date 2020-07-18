@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node dist/app.js",
-    "dev": "tsc && node --inspect dist/app.js",
-    "build": "tsc"
+    "dev": "tsc --build && node --inspect dist/app.js",
+    "build": "tsc --build"
   },
   "dependencies": {
     "async": "^2.6.1",

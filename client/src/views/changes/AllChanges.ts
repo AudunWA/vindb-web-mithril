@@ -4,7 +4,7 @@ import HistoryUtil from "../../controllers/HistoryUtil";
 import Change from "../../models/Change";
 import Layout from "../Layout";
 import MaterialSelect from "../general/MaterialSelect";
-import { setMetaDescription } from "../../util/meta";
+import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 let lastDate;
 let loading = true;
 
@@ -30,6 +30,7 @@ const PriceChanges = {
     },
     oncreate: function () {
         document.title = "Endringer — VinDB";
+        setCanonicalUrl("http://vindb.audun.me/history");
         setMetaDescription(
             "Oversikt over de siste endringene gjort i Vinmonopolets vareutvalg.",
         );

@@ -3,6 +3,7 @@ import moment from "moment";
 import PriceChange from "../../models/PriceChange";
 import Layout from "../Layout";
 import MaterialCard from "../general/MaterialCard";
+import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 
 const PriceChanges = {
     oninit: function () {
@@ -10,6 +11,8 @@ const PriceChanges = {
     },
     oncreate: function () {
         document.title = "Prisendringer — VinDB";
+        setCanonicalUrl("http://vindb.audun.me/pricechangesold");
+        setMetaDescription("Alternativ oversikt over prisendringer.");
     },
     view: function () {
         return m(

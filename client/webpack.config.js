@@ -15,6 +15,7 @@ module.exports = {
                 options: {
                     // disable type checker - we will use it in fork plugin
                     transpileOnly: true,
+                    projectReferences: true,
                 },
             },
         ],

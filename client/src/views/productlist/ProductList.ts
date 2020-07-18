@@ -1,7 +1,7 @@
 import m from "mithril";
 import Product from "../../models/Product";
 import Pagination from "./Pagination";
-import { setMetaDescription } from "../../util/meta";
+import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 
 function objectEquals(x, y) {
     if (x === null || x === undefined || y === null || y === undefined) {
@@ -77,6 +77,7 @@ const ProductList: m.Component<
         const elems = document.querySelectorAll("select");
         const instances = M.FormSelect.init(elems);
         document.title = "Produkter — VinDB";
+        setCanonicalUrl(null);
         setMetaDescription(
             "Oversikt over alle produkter i Vinmonopolets vareutvalg.",
         );

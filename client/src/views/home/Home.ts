@@ -1,5 +1,5 @@
 import m from "mithril";
-import { setMetaDescription } from "../../util/meta";
+import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 
 let queryString;
 
@@ -16,8 +16,9 @@ function onSearchClick(e) {
 const Home = {
     oncreate: function () {
         document.title = "VinDB";
+        setCanonicalUrl("http://vindb.audun.me/");
         setMetaDescription(
-            "VinDB tilbyr en oversikt over alle endringer gjort i Vinmonopolets vareutvalg. Vi sjekker daglig varenes endringer, og holder styr på alt fra prisendringer til rettinger av skrivefeil!",
+            "VinDB gir oversikt over alle endringer gjort i Vinmonopolets vareutvalg. Vi sjekker daglig varenes endringer, og holder styr på alt fra prisendringer til rettinger av skrivefeil!",
         );
     },
     view: function () {
@@ -26,11 +27,11 @@ const Home = {
             m("h5", [
                 m(
                     "p",
-                    "Vi tilbyr en oversikt over alle endringer gjort i Vinmonopolets vareutvalg. Vi sjekker daglig varenes endringer, og holder styr på alt fra prisendringer til rettinger av skrivefeil!\n",
+                    "Vi gir oversikt over alle endringer gjort i Vinmonopolets vareutvalg. Vi sjekker daglig varenes endringer, og holder styr på alt fra prisendringer til rettinger av skrivefeil!\n",
                 ),
                 m(
                     "p",
-                    "Skriv i søkefeltet, eller velg en kategori fra toppmenyen!",
+                    "Skriv i søkefeltet, eller velg en kategori fra menyen.",
                 ),
             ]),
             m(

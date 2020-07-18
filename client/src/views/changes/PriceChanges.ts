@@ -3,7 +3,7 @@ import moment from "moment";
 import PriceChange from "../../models/PriceChange";
 import Layout from "../Layout";
 import { Vnode } from "mithril";
-import { setMetaDescription } from "../../util/meta";
+import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 
 let loading = true;
 
@@ -18,6 +18,7 @@ const PriceChanges = {
     oninit: loadPriceChanges,
     oncreate: function () {
         document.title = "Prisendringer — VinDB";
+        setCanonicalUrl("http://vindb.audun.me/pricechanges");
         setMetaDescription(
             "Oversikt over de siste prisendringene i Vinmonopolets utvalg.",
         );

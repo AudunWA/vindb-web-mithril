@@ -1,10 +1,12 @@
 import m from "mithril";
 import moment from "moment";
 import Product from "../../models/Product";
+import * as types from "../../../../shared/src/types";
 import Layout from "../Layout";
 import PriceHistoryCard from "./PriceHistoryCard";
 import ProductHistoryCard from "./ProductHistoryCard";
-import { setMetaDescription } from "../../util/meta";
+import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
+
 // Set moment locale
 moment.locale("nb");
 
@@ -76,18 +78,36 @@ function updateTabInUrl(tab) {
     }
 }
 
-const ProductInfoCard = {
+function generateMetaDescription(product: types.Product): string {
+    let description = product.varenavn;
+    if (product.smak != null && product.smak.trim().length > 0) {
+        description += ": " + product.smak;
+        if (!product.smak.endsWith(".")) {
+            description += ".";
+        } else {
+        }
+    } else {
+        description += ".";
+    }
+
+    const extendedProductMetadata = getExtendedProductMetadata(product);
+    if (extendedProductMetadata.length > 0) {
+        description +=
+            " " +
+            extendedProductMetadata
+                .map(({ name, value }) => name + value)
+                .join("; ") +
+            ".";
+    }
+
+    description += " Finnes på Vinmonopolet.";
+    return description;
+}
+
+const ProductInfoCard: m.Component<{ product: types.Product }> = {
     view: function (vnode) {
         const product = vnode.attrs.product;
         if (product === null) return null;
-
-        setMetaDescription(
-            `${product.varenavn}: ${product.smak}${
-                product.smak.endsWith(".") ? "" : "."
-            } ${getExtendedProductMetadata(product)
-                .map(({ name, value }) => name + value)
-                .join("; ")}`,
-        );
 
         return m(
             ".card white darken-1",
@@ -174,10 +194,10 @@ function getExtendedProductMetadata(
     if (product.sukker != null && product.sukker !== "Ukjent") {
         values.push({
             name: "Sukker: ",
-            value: product.sukker / 100 + " gram per liter",
+            value: product.sukker + " gram per liter",
         });
     }
-    if (product.syre != null && product.sukker !== "Ukjent") {
+    if (product.syre != null) {
         values.push({
             name: "Syre: ",
             value: product.syre / 100 + " gram per liter",
@@ -229,7 +249,13 @@ function selectCorrectTab() {
     instance.select(tabId);
 }
 
-const ProductView = {
+const ProductView: m.Component<
+    { id: number; tab: "main" | "price" | "history" },
+    {
+        tab: "main" | "price" | "history";
+        product: types.Product | null;
+    }
+> = {
     oninit: function (vnode) {
         productId = vnode.attrs.id;
         tab = vnode.attrs.tab;
@@ -288,15 +314,15 @@ const ProductView = {
             ),
         );
     },
-    oncreate: function (vnode) {
-        console.log("DOM created");
-    },
     onupdate: function (vnode) {
         tab = vnode.attrs.tab;
         selectCorrectTab();
-        console.log("onupdate");
         if (this.product != null) {
             document.title = `${this.product.varenavn} — VinDB`;
+            setCanonicalUrl(
+                `http://vindb.audun.me/product/${this.product.varenummer}`,
+            );
+            setMetaDescription(generateMetaDescription(this.product));
         }
     },
     onbeforeremove: function (vnode) {
