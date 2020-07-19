@@ -23,28 +23,30 @@ import { config } from "dotenv";
 import { promisify } from "util";
 
 import compression from "compression";
+import { sharedPrint } from "../../shared/lib/types";
 
 console.log("VinDB server starting!");
 const app = express();
 if (app.get("env") === "development") {
-  // Load environment variables from .env
-  config();
+    // Load environment variables from .env
+    config();
 }
 
 app.use(compression());
 
 // set mysql config
 export const pool = mysql.createPool({
-  connectionLimit: 15,
-  host: process.env.RDS_HOSTNAME,
-  user: process.env.RDS_USERNAME,
-  password: process.env.RDS_PASSWORD,
-  port: Number(process.env.RDS_PORT),
-  database: process.env.RDS_DB_NAME,
+    connectionLimit: 15,
+    host: process.env.RDS_HOSTNAME,
+    user: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    port: Number(process.env.RDS_PORT),
+    database: process.env.RDS_DB_NAME,
 });
 
 export const query = promisify(pool.query).bind(pool);
 
+sharedPrint();
 // Listen port
 app.set("port", process.env.PORT || 3000);
 
@@ -66,16 +68,16 @@ app.use("/", sitemap);
 
 // SPA
 app.use("*", function (req, resp) {
-  resp.sendFile("index.html", {
-    root: path.join(__dirname, "../../client/dist"),
-  });
+    resp.sendFile("index.html", {
+        root: path.join(__dirname, "../../client/dist"),
+    });
 });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  const err: any = new Error("Not Found");
-  err.status = 404;
-  next(err);
+    const err: any = new Error("Not Found");
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -83,29 +85,29 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get("env") === "development") {
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render("error", {
-      message: err.message,
-      error: err,
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render("error", {
+            message: err.message,
+            error: err,
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.render("error", {
-    message: err.message,
-    error: {},
-  });
+    res.status(err.status || 500);
+    res.render("error", {
+        message: err.message,
+        error: {},
+    });
 });
 
 // Start listen
 //if (app.get('env') != 'development') {
 http.createServer(app).listen(app.get("port"), function () {
-  console.log("Express server listening on port " + app.get("port"));
+    console.log("Express server listening on port " + app.get("port"));
 });
 //}
 

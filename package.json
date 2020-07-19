@@ -2,6 +2,13 @@
   "name": "vindb-web",
   "version": "0.0.0",
   "scripts": {
+    "dev": "concurrently 'npm:watch-*'",
+    "watch-ts": "tsc --build -v --watch",
     "postinstall": "cd client && npm install --only=dev && npm install && npm run build && cd .. && cd server && npm install --only=dev && npm install && npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.7",
+    "nodemon": "^2.0.4",
+    "concurrently": "^5.2.0"
   }
 }

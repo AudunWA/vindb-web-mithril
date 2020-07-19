@@ -6,20 +6,15 @@
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "rootDir": "src",
-    "outDir": "dist",
-    "baseUrl": ".",
+    "outDir": "lib",
     "strict": true,
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "src/types/*"
-      ]
-    }
+    "rootDir": "src",
+    "noEmitOnError": true
   },
+  "references": [],
   "include": [
     "src/**/*"
   ]

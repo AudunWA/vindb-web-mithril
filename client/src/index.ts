@@ -6,11 +6,13 @@ import Product from "./views/product/Product";
 import PriceChanges from "./views/changes/PriceChanges";
 import PriceChangesOld from "./views/changes/PriceChangesOld";
 import AllChanges from "./views/changes/AllChanges";
+import { sharedPrintClient } from "../../shared/src/types";
 // Define GA if adblock
 if (window.ga == null) {
     window.ga = (() => {}) as any;
 }
 
+sharedPrintClient();
 m.route.prefix = "";
 m.route(document.body, "/", {
     "/": {
