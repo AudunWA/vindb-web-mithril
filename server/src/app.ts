@@ -1,3 +1,5 @@
+import "module-alias/register";
+
 // Global debug flag
 import changes from "./routes/rest/changes";
 // REST
@@ -23,7 +25,7 @@ import { config } from "dotenv";
 import { promisify } from "util";
 
 import compression from "compression";
-import { sharedPrint } from "../../shared/lib/types";
+import { sharedPrint } from "@shared/types";
 
 console.log("VinDB server starting!");
 const app = express();

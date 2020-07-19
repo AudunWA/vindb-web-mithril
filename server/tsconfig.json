@@ -10,7 +10,11 @@
         "composite": true,
         "rootDir": "src",
         "declaration": true,
-        "noEmitOnError": true
+        "noEmitOnError": true,
+        "baseUrl": ".",
+        "paths": {
+            "@shared/*": ["../shared/src/*"]
+        }
     },
     "include": ["src/**/*"],
     "references": [

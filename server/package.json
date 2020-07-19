@@ -5,9 +5,10 @@
   "scripts": {
     "start": "node dist/app.js",
     "build": "tsc --build",
-    "dev": "concurrently 'npm:watch-*'",
-    "watch-ts": "tsc --build -v --watch",
-    "watch-node": "nodemon -w dist dist/app.js"
+    "dev:old": "concurrently 'npm:watch-*'",
+    "dev": "nodemon --watch src --watch ../shared/src --verbose --ext js,ts,json --exec \"tsc --build --verbose --pretty && node dist/app.js\"",
+    "watch-ts": "tsc --build --verbose --watch --pretty",
+    "watch-node": "nodemon --watch dist --verbose dist/app.js"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -29,6 +30,10 @@
     "prettier": "^2.0.5",
     "typescript": "^3.9.7",
     "nodemon": "^2.0.4",
-    "concurrently": "^5.2.0"
+    "concurrently": "^5.2.0",
+    "module-alias": "^2.2.2"
+  },
+  "_moduleAliases": {
+    "@shared": "../shared/dist"
   }
 }
