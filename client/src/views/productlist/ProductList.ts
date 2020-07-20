@@ -3,7 +3,7 @@ import Product from "../../models/Product";
 import Pagination from "./Pagination";
 import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 
-function objectEquals(x, y) {
+function objectEquals(x: any, y: any): boolean {
     if (x === null || x === undefined || y === null || y === undefined) {
         return x === y;
     }
@@ -40,25 +40,32 @@ function objectEquals(x, y) {
     }
 
     // recursive object equality check
-    var p = Object.keys(x);
+    const p = Object.keys(x);
     return (
         Object.keys(y).every(function (i) {
             return p.indexOf(i) !== -1;
         }) &&
         p.every(function (i) {
-            return objectEquals(x[i], y[i]);
+            return objectEquals(
+                (x as Record<string, unknown>)[i],
+                (y as Record<string, unknown>)[i],
+            );
         })
     );
 }
 
-function onClickTableHeader(e) {
+function onClickTableHeader(e: {
+    target: {
+        dataset: { field: string };
+    };
+}) {
     const queryParameters = m.route.param();
     const newField = e.target.dataset.field;
 
     if (queryParameters.order_by === newField) {
         if (queryParameters.desc) {
+            queryParameters.desc = !queryParameters.desc;
         }
-        queryParameters.desc = !queryParameters.desc;
     }
     queryParameters.order_by = newField;
     m.route.set("/products", queryParameters);
@@ -90,7 +97,7 @@ const ProductList: m.Component<
         }
     },
     view: function (vnode) {
-        const onSearch = (e) => {
+        const onSearch = (e: Event) => {
             e.preventDefault();
             const params = m.route.param();
 
@@ -120,8 +127,8 @@ const ProductList: m.Component<
                             //     }
                             //     Product.loadList(queryString);
                             // },
-                            onchange: (e) => {
-                                vnode.state.queryString = e.target.value;
+                            onchange: (e: Event) => {
+                                vnode.state.queryString = (e.target as HTMLFormElement).value;
                             },
                             onsubmit: onSearch,
                         },
@@ -226,8 +233,7 @@ const ProductList: m.Component<
                                 "tr",
                                 {
                                     key: product.varenummer,
-                                    "data-href":
-                                        "/product/" + product.varenummer,
+                                    "data-href": `/product/${product.varenummer}`,
                                 },
                                 [
                                     // m("td.hide-on-med-and-down", product.varenummer),
@@ -238,15 +244,13 @@ const ProductList: m.Component<
                                             m.route.Link,
                                             {
                                                 selector: "a.rowlink.no-style",
-                                                href:
-                                                    "/product/" +
-                                                    product.varenummer,
+                                                href: `/product/${product.varenummer}`,
                                             },
                                             product.varenavn,
                                         ),
                                     ),
                                     m("td", `${product.volum} liter`),
-                                    m("td", product.pris + ",-"),
+                                    m("td", `${product.pris},-`),
                                     // m("td.hide-on-med-and-down", product.literspris.toFixed(2) + ",-"),
                                     m("td", product.alkohol.toFixed(1) + "%"),
                                     m(

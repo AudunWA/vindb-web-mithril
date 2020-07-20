@@ -10,20 +10,21 @@ import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 // Set moment locale
 moment.locale("nb");
 
-let productId;
-let tabsInstance;
-let tab;
+let productId: number;
+let tab: string;
 
 const tabs = [
     { isActive: true, title: "Produkt", href: "#main_tab" },
-    { title: "Prisgraf", href: "#price_tab" },
-    { title: "Historikk", href: "#history_tab" },
+    { isActive: false, title: "Prisgraf", href: "#price_tab" },
+    { isActive: false, title: "Historikk", href: "#history_tab" },
 ];
 
-const Tabs = {
+const Tabs: m.Component<{
+    tabs: { isActive: boolean; href: string; title: string }[];
+}> = {
     oncreate: function () {
         // Make sure tabs get initialized
-        tabsInstance = M.Tabs.init(document.querySelectorAll(".tabs"), {
+        M.Tabs.init(document.querySelectorAll(".tabs"), {
             onShow: updateTabInUrl,
         });
     },
@@ -50,7 +51,7 @@ const Tabs = {
     },
 };
 
-function updateTabInUrl(tab) {
+function updateTabInUrl(tab: HTMLElement) {
     const data = m.route.param();
 
     let tabId;
@@ -84,7 +85,6 @@ function generateMetaDescription(product: types.Product): string {
         description += ": " + product.smak;
         if (!product.smak.endsWith(".")) {
             description += ".";
-        } else {
         }
     } else {
         description += ".";
@@ -122,8 +122,8 @@ const ProductInfoCard: m.Component<{ product: types.Product }> = {
                     ".card-content black-text",
                     m("span.card-title", product.varenavn),
                     m("p", { style: { marginBottom: "20px" } }, product.smak),
-                    m("p", m("b", "Alkoholprosent: "), product.alkohol + "%"),
-                    m("p", m("b", "Volum: "), product.volum + " liter"),
+                    m("p", m("b", "Alkoholprosent: "), `${product.alkohol}%`),
+                    m("p", m("b", "Volum: "), `${product.volum} liter`),
                     m("p", m("b", "Pris: "), product.pris.toFixed(2) + ",-"),
                     m(
                         "p",
@@ -156,9 +156,7 @@ const ProductInfoCard: m.Component<{ product: types.Product }> = {
                 m(
                     "a.vinmonopolet-link",
                     {
-                        href:
-                            "https://www.vinmonopolet.no/vareutvalg/varedetaljer/sku-" +
-                            product.varenummer,
+                        href: `https://www.vinmonopolet.no/vareutvalg/varedetaljer/sku-${product.varenummer}`,
                     },
                     "Finn på Vinmonopolet",
                 ),
@@ -168,7 +166,7 @@ const ProductInfoCard: m.Component<{ product: types.Product }> = {
 };
 
 function getExtendedProductMetadata(
-    product,
+    product: types.Product,
 ): { name: string; value: string }[] {
     const values = [];
     if (product.passer_til_1 !== null) {
@@ -183,47 +181,48 @@ function getExtendedProductMetadata(
     }
 
     if (product.argang !== null) {
-        values.push({ name: "År: ", value: product.argang });
+        values.push({ name: "År: ", value: product.argang.toString() });
     }
     if (product.rastoff !== null) {
-        values.push({ name: "Råstoff: ", value: product.rastoff });
+        values.push({ name: "Råstoff: ", value: product.rastoff.toString() });
     }
     if (product.metode !== null) {
-        values.push({ name: "Metode: ", value: product.metode });
+        values.push({ name: "Metode: ", value: product.metode.toString() });
     }
     if (product.sukker != null && product.sukker !== "Ukjent") {
         values.push({
             name: "Sukker: ",
-            value: product.sukker + " gram per liter",
+            value: `${product.sukker} gram per liter`,
         });
     }
     if (product.syre != null) {
         values.push({
             name: "Syre: ",
-            value: product.syre / 100 + " gram per liter",
+            value: `${product.syre / 100} gram per liter`,
         });
     }
     if (product.lagringsgrad !== null) {
         values.push({
             name: "Lagringsgrad: ",
-            value: product.lagringsgrad,
+            value: product.lagringsgrad.toString(),
         });
     }
     return values;
 }
 
-const ExtendedProductInfoCard = {
-    product: null,
-    view: function (vnode) {
-        this.product = vnode.attrs.product;
-        if (this.product === null) return null;
+const ExtendedProductInfoCard: m.Component<{
+    product: types.Product | null;
+}> = {
+    view: (vnode) => {
+        const { product } = vnode.attrs;
+        if (product === null) return null;
 
         return m(
             ".card blue",
             m(
                 ".card-content white-text",
                 m("span.card-title", "Tilleggsinformasjon"),
-                getExtendedProductMetadata(this.product).map(function (pair) {
+                getExtendedProductMetadata(product).map(function (pair) {
                     return m("p", m("b", pair.name), pair.value);
                 }),
             ),
@@ -267,8 +266,10 @@ const ProductView: m.Component<
     view: function (vnode) {
         console.log("view");
 
+        if (this.product == null) return null;
+
         return [
-            m(Tabs, { tabs: tabs }),
+            m(Tabs, { tabs }),
             m(
                 ".container",
                 m(
@@ -279,13 +280,13 @@ const ProductView: m.Component<
                               m(
                                   ".col m6 s12",
                                   m(ProductInfoCard, {
-                                      product: Product.currentProduct,
+                                      product: this.product,
                                   }),
                               ),
                               m(
                                   ".col m6 s12",
                                   m(ExtendedProductInfoCard, {
-                                      product: Product.currentProduct,
+                                      product: this.product,
                                   }),
                               ),
                           )
@@ -297,14 +298,14 @@ const ProductView: m.Component<
                         ? m(
                               ".row",
                               m(PriceHistoryCard, {
-                                  product: Product.currentProduct,
+                                  product: this.product,
                               }),
                           )
                         : null,
                 ),
                 m(
                     "#history_tab.col m12 s12",
-                    this.product
+                    Product.currentChanges
                         ? m(ProductHistoryCard, {
                               history: Product.currentChanges,
                           })
@@ -323,19 +324,6 @@ const ProductView: m.Component<
             );
             setMetaDescription(generateMetaDescription(this.product));
         }
-    },
-    onbeforeremove: function (vnode) {
-        console.log("exit animation can start");
-        return new Promise(function (resolve) {
-            // call after animation completes
-            resolve();
-        });
-    },
-    onremove: function (vnode) {
-        console.log("removing DOM element");
-    },
-    onbeforeupdate: function (vnode, old) {
-        return true;
     },
 };
 

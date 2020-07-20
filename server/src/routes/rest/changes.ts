@@ -34,7 +34,7 @@ router.get("/", async (req, res, next) => {
         .limit(200);
 
     if (validFields.length > 0) {
-        squelQuery.where("field_id IN ?", validFields.join());
+        squelQuery.where("field_id IN ?", validFields);
     }
 
     if (!req.query.include_gtin) {

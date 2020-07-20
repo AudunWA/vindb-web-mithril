@@ -1,6 +1,7 @@
 import express from "express";
 import squel from "squel";
 import { query } from "../../app";
+import { Product, ProductListResponse } from "@shared/types";
 
 const router = express.Router();
 const ALLOWED_ORDER_VALUES = [
@@ -95,19 +96,20 @@ router.get("/", async (req, res, next) => {
     const queryString = squelQuery.toParam();
     console.log(queryString.text);
     console.dir(queryString.values);
-    const rows = await query(queryString.text, queryString.values);
+    const rows: Product[] = await query(queryString.text, queryString.values);
     rows.forEach((product) => {
         if (product.literspris == null) {
             product.literspris = product.pris;
         }
     });
 
-    res.json({
+    const response: ProductListResponse = {
         products: rows,
         productsPerPage: ENTRIES_PER_PAGE,
         currentPage: page,
         pageCount: pageCount,
-    });
+    };
+    res.json(response);
 });
 
 async function getPageCount(queryText: string, params?: unknown[]) {

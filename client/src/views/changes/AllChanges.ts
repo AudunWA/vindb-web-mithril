@@ -1,11 +1,11 @@
 import m from "mithril";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import HistoryUtil from "../../controllers/HistoryUtil";
 import Change from "../../models/Change";
-import Layout from "../Layout";
 import MaterialSelect from "../general/MaterialSelect";
 import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
-let lastDate;
+
+let lastDate: Moment | null = null;
 let loading = true;
 
 function loadPriceChanges(fieldIds?: string[]) {
@@ -18,8 +18,10 @@ function loadPriceChanges(fieldIds?: string[]) {
 function onFilterChange(e: { target: Element }) {
     // https://stackoverflow.com/questions/11821261/how-to-get-all-selected-values-from-select-multiple-multiple#comment86548587_31544256
     const selectedFieldIds = Array.from(
-        e.target.querySelectorAll("option:checked:not([disabled])"),
-        (e: HTMLOptionElement) => e.value,
+        e.target.querySelectorAll<HTMLOptionElement>(
+            "option:checked:not([disabled])",
+        ),
+        (e) => e.value,
     );
     loadPriceChanges(selectedFieldIds);
 }
@@ -60,12 +62,12 @@ const PriceChanges: m.Component = {
             }),
             m(
                 "ul.collection.with-header",
-                Change.list.map(function (change) {
+                Change.list.map((change) => {
                     const vnodes: m.Vnode[] = [];
-                    const date = moment(change.time).format("D. MMMM YYYY");
+                    const date = moment(change.time);
 
                     // Add date header if new date
-                    if (date !== lastDate) {
+                    if (!date.isSame(lastDate, "date")) {
                         vnodes.push(m("li.collection-header", m("h5", date)));
                         lastDate = date;
                     }

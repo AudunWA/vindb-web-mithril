@@ -16,7 +16,7 @@ const PriceChange: PriceChangeType = {
         m
             .request<PriceChange[]>({
                 method: "GET",
-                url: "/rest/pricechanges",
+                url: "/rest/changes?fields=4",
             })
             .then(function (result) {
                 PriceChange.list = result;

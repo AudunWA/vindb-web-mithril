@@ -4,15 +4,15 @@ import { ProductChange } from "@shared/types";
 interface ChangeType {
     list: ProductChange[];
     error?: Error;
-    loadChanges: (fieldIds: string[]) => Promise<void>;
+    loadChanges: (fieldIds?: string[]) => Promise<void>;
     getPriceDifference: (
         change: ProductChange,
     ) => { delta: number; percent: number };
 }
 const Change: ChangeType = {
     list: [],
-    error: null,
-    loadChanges: async (fieldIds: string[]): Promise<void> => {
+    error: undefined,
+    loadChanges: async (fieldIds?: string[]): Promise<void> => {
         const data: { fields?: string } = {};
         if (fieldIds) {
             data.fields = fieldIds.join();

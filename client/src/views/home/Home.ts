@@ -1,9 +1,9 @@
 import m from "mithril";
 import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 
-let queryString;
+let queryString: string;
 
-function onSearchClick(e) {
+function onSearchClick(e: Event) {
     e.preventDefault();
 
     if (typeof queryString !== "undefined") {
@@ -13,7 +13,7 @@ function onSearchClick(e) {
     }
 }
 
-const Home = {
+const Home: m.Component = {
     oncreate: function () {
         document.title = "VinDB";
         setCanonicalUrl("http://vindb.audun.me/");
@@ -37,7 +37,7 @@ const Home = {
             m(
                 "form[action='/products'][id='searchForm']",
                 {
-                    onchange: function (e) {
+                    onchange: function (e: { target: { value: string } }) {
                         queryString = e.target.value;
                     },
                     onsubmit: onSearchClick,

@@ -10,8 +10,7 @@ import sitemap from "./routes/sitemap";
 
 import http from "http";
 
-import express, { NextFunction, Request, Response } from "express";
-import priceChanges from "./routes/rest/pricechanges";
+import express from "express";
 import restProducts from "./routes/rest/products";
 import mysql, { QueryOptions } from "mysql";
 import bodyParser from "body-parser";
@@ -71,7 +70,6 @@ app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use("/rest/pricehistory", priceHistory);
 app.use("/rest/products", restProduct);
 app.use("/rest/products", restProducts);
-app.use("/rest/pricechanges", priceChanges);
 app.use("/rest/changes", changes);
 app.use("/", sitemap);
 
@@ -87,35 +85,6 @@ app.use(function (req, res, next) {
     const err: any = new Error("Not Found");
     err.status = 404;
     next(err);
-});
-
-// error handlers
-interface ExpressError extends Error {
-    status: number;
-}
-
-// development error handler
-// will print stacktrace
-if (app.get("env") === "development") {
-    app.use(
-        (error: ExpressError, req: Request, res: Response, _: NextFunction) => {
-            res.status(error.status || 500);
-            res.render("error", {
-                message: error.message,
-                error,
-            });
-        },
-    );
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use((error: ExpressError, req: Request, res: Response, _: NextFunction) => {
-    res.status(error.status || 500);
-    res.render("error", {
-        message: error.message,
-        error: {},
-    });
 });
 
 // Start listen

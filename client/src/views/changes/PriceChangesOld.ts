@@ -26,28 +26,23 @@ const PriceChanges: m.Component = {
 
                 const colorClass =
                     percent > 0 ? "red lighten-1" : "green lighten-1";
-                const chips = [m(".chip " + colorClass, percent, "%")];
                 return m(
                     MaterialCard,
                     {
                         color: colorClass,
                         title: change.varenavn,
-                        chips: chips,
                         links: m(
                             m.route.Link,
-                            { href: "/product/" + change.varenummer },
+                            { href: `/product/${change.varenummer}` },
                             "Se produkt",
                         ),
-                        // image: "https://bilder.vinmonopolet.no/cache/515x515-0/" + change.varenummer + "-1.jpg"
+                        image: `https://bilder.vinmonopolet.no/cache/515x515-0/${change.varenummer}-1.jpg`,
                     },
                     m(
                         "p",
-                        "" +
-                            Math.abs(percent) +
-                            "% " +
-                            (percent > 0 ? "dyrere" : "billigere") +
-                            ", " +
-                            moment(change.time).format("D. MMMM YYYY"),
+                        `${Math.abs(percent)}% ${
+                            percent > 0 ? "dyrere" : "billigere"
+                        }, ${moment(change.time).format("D. MMMM YYYY")}`,
                     ),
                 );
             }),

@@ -1,5 +1,5 @@
 const HistoryUtil = {
-    getNameForChangeField: function (changeField) {
+    getNameForChangeField: (changeField: number): string => {
         switch (changeField) {
             case 0:
                 return "Varenummer";
@@ -72,7 +72,7 @@ const HistoryUtil = {
                 return "Korktype";
         }
     },
-    getIconForChangeField: function (changeField) {
+    getIconForChangeField: (changeField: number): string => {
         switch (changeField) {
             default:
             case 0:
@@ -149,55 +149,55 @@ const HistoryUtil = {
         {
             label: "Grunnleggende",
             options: [
-                {label: "Varenavn", value: 2},
-                {label: "Pris", value: 4},
-                {label: "Alkoholprosent", value: 25},
-                {label: "Volum", value: 3},
-                {label: "Årgang", value: 22},
-                {label: "Varetype", value: 5}
-            ]
+                { label: "Varenavn", value: 2 },
+                { label: "Pris", value: 4 },
+                { label: "Alkoholprosent", value: 25 },
+                { label: "Volum", value: 3 },
+                { label: "Årgang", value: 22 },
+                { label: "Varetype", value: 5 },
+            ],
         },
         {
             label: "Tilgjengelighet",
             options: [
-                {label: "Produktutvalg", value: 6},
-                {label: "Butikkategori", value: 7}
-            ]
+                { label: "Produktutvalg", value: 6 },
+                { label: "Butikkategori", value: 7 },
+            ],
         },
         {
             label: "Smak og ernæring",
             options: [
-                {label: "Fylde", value: 8},
-                {label: "Friskhet", value: 9},
-                {label: "Garvestoffer", value: 10},
-                {label: "Bitterhet", value: 11},
-                {label: "Sødme", value: 12},
-                {label: "Farge", value: 13},
-                {label: "Lukt", value: 14},
-                {label: "Smak", value: 15},
-                {label: "Passer til", value: "16,17,18"},
-            ]
+                { label: "Fylde", value: 8 },
+                { label: "Friskhet", value: 9 },
+                { label: "Garvestoffer", value: 10 },
+                { label: "Bitterhet", value: 11 },
+                { label: "Sødme", value: 12 },
+                { label: "Farge", value: 13 },
+                { label: "Lukt", value: 14 },
+                { label: "Smak", value: 15 },
+                { label: "Passer til", value: "16,17,18" },
+            ],
         },
         {
             label: "Geografi",
             options: [
-                {label: "Land", value: 19},
-                {label: "Distrikt", value: 20},
-                {label: "Underdistrikt", value: 21}
-            ]
+                { label: "Land", value: 19 },
+                { label: "Distrikt", value: 20 },
+                { label: "Underdistrikt", value: 21 },
+            ],
         },
         {
             label: "Diverse",
             options: [
-                {label: "Lagringsgrad", value: 28},
-                {label: "Produsent", value: 29},
-                {label: "Grossist", value: 30},
-                {label: "Distributør", value: 31},
-                {label: "Emballasjetype", value: 32},
-                {label: "Korktype", value: 33}
-            ]
-        }
-    ]
+                { label: "Lagringsgrad", value: 28 },
+                { label: "Produsent", value: 29 },
+                { label: "Grossist", value: 30 },
+                { label: "Distributør", value: 31 },
+                { label: "Emballasjetype", value: 32 },
+                { label: "Korktype", value: 33 },
+            ],
+        },
+    ],
 };
 
 export default HistoryUtil;

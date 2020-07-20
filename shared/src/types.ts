@@ -48,6 +48,20 @@ export interface Product {
     literspris: number;
 }
 
+export interface ProductResponse {
+    product: Product;
+    changes: ProductChange[];
+}
+
+export interface ProductListResponse {
+    products: Product[];
+    currentPage: number;
+    productsPerPage: number;
+    pageCount: number;
+}
+
+export type PriceChangeListResponse = PriceChange[];
+
 export interface ProductChange {
     time: Date;
     varenavn: string;
@@ -56,6 +70,7 @@ export interface ProductChange {
     change_id: number;
     old_value: string;
     new_value: string;
+    name: string;
 }
 
 export interface PriceChange extends Omit<Product, "epk" | "literspris"> {
