@@ -18,7 +18,7 @@ const PriceChanges = {
     oninit: loadPriceChanges,
     oncreate: function () {
         document.title = "Prisendringer — VinDB";
-        setCanonicalUrl("http://vindb.audun.me/pricechanges");
+        setCanonicalUrl("https://vindb.audun.me/pricechanges");
         setMetaDescription(
             "Oversikt over de siste prisendringene i Vinmonopolets utvalg.",
         );
