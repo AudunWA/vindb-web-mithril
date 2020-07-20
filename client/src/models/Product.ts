@@ -1,5 +1,5 @@
 import m from "mithril";
-import * as types from "../../../shared/src/types";
+import * as types from "@shared/types";
 interface ProductModel {
     pageCount: number;
     loadPriceHistory: (productId) => Promise<unknown>;

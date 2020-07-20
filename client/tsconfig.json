@@ -10,9 +10,13 @@
         "importsNotUsedAsValues": "preserve",
         "composite": true,
         "rootDir": "src",
-        "noEmitOnError": true
+        "noEmitOnError": true,
+        "baseUrl": ".",
+        "paths": {
+            "@shared/*": ["../shared/src/*"]
+        }
     },
-    "include": ["src/**/*"],
+    "include": ["src"],
     "references": [
         {
             "path": "../shared"

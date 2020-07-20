@@ -108,6 +108,7 @@ router.get("/", async (req, res, next) => {
                 setLimit(squelQuery, page - 1);
 
                 query = squelQuery.toParam();
+                console.log(query.text);
                 connection.query(query.text, query.values, function (
                     err,
                     rows,
@@ -156,7 +157,7 @@ function getPageCount(connection, query, params, callback) {
 }
 
 function getLastChangeTime(connection, callback) {
-    const query = "SELECT MAX(time) FROM change_log";
+    const query = "SELECT MAX(time) as time FROM change_log";
     connection.query(query, function (err, rows, fields) {
         if (err) {
             callback(err);
