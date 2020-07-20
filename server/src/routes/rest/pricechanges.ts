@@ -2,7 +2,7 @@
  * Created by Audun on 29.12.2016.
  */
 import express from "express";
-import { pool, query } from "../../app";
+import { query } from "../../app";
 
 const router = express.Router();
 

@@ -267,8 +267,7 @@ const ProductView: m.Component<
     view: function (vnode) {
         console.log("view");
 
-        return m(
-            Layout /*{ tabs: tabs},*/,
+        return [
             m(Tabs, { tabs: tabs }),
             m(
                 ".container",
@@ -312,7 +311,7 @@ const ProductView: m.Component<
                         : null,
                 ),
             ),
-        );
+        ];
     },
     onupdate: function (vnode) {
         tab = vnode.attrs.tab;

@@ -3,8 +3,7 @@
  */
 import express from "express";
 
-import squel from "squel";
-import { pool, query } from "../../app";
+import { query } from "../../app";
 
 const router = express.Router();
 router.get("/:product_id", async (req, res, next) => {
@@ -12,7 +11,7 @@ router.get("/:product_id", async (req, res, next) => {
     try {
         const rows = await query(
             "SELECT old_value, new_value, time FROM product_change NATURAL JOIN change_log WHERE field_id = 4 AND product_id = ? ORDER BY time LIMIT 200",
-            [productId],
+            productId,
         );
         return res.json(rows);
     } catch (e) {

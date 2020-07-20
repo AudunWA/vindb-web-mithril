@@ -34,11 +34,11 @@ module.exports = {
         new CopyPlugin({
             patterns: [{ from: "static", to: "./" }],
         }),
-        new ForkTsCheckerWebpackPlugin({
-            // eslint: {
-            //     files: './src/**/*.{ts,tsx,js,jsx}' // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
-            // }
-        }),
+        // new ForkTsCheckerWebpackPlugin({
+        //     // eslint: {
+        //     //     files: './src/**/*.{ts,tsx,js,jsx}' // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
+        //     // }
+        // }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css",
