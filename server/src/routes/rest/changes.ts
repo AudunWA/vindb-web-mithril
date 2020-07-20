@@ -20,7 +20,7 @@ router.get("/", async (req, res, next) => {
 
     let squelQuery = squel
         .select()
-        .fields(["product.varenavn", "product_change.*", "time"])
+        .fields(["product.varenavn", "product_change.*", "change_log.time"])
         .from("product_change")
         .join(
             "change_log",

@@ -48,6 +48,22 @@ export interface Product {
     literspris: number;
 }
 
+export interface ProductChange {
+    time: Date;
+    varenavn: string;
+    product_id: number;
+    field_id: number;
+    change_id: number;
+    old_value: string;
+    new_value: string;
+}
+
+export interface PriceChange extends Omit<Product, "epk" | "literspris"> {
+    old_value: string;
+    new_value: string;
+    time: Date;
+}
+
 export function sharedPrint() {
     console.log("Shared print has changed again and again (x2)!");
 }

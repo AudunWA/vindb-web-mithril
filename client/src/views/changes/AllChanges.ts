@@ -61,7 +61,7 @@ const PriceChanges: m.Component = {
             m(
                 "ul.collection.with-header",
                 Change.list.map(function (change) {
-                    const vnodes = [];
+                    const vnodes: m.Vnode[] = [];
                     const date = moment(change.time).format("D. MMMM YYYY");
 
                     // Add date header if new date
