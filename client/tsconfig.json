@@ -1,17 +1,9 @@
 {
+    "extends": "../tsconfig.base.json",
     "compilerOptions": {
-        "module": "CommonJS",
-        "moduleResolution": "Node",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "es6",
-        "strict": true,
-        "sourceMap": true,
         "outDir": "dist",
         "importsNotUsedAsValues": "preserve",
-        "composite": true,
         "rootDir": "src",
-        "noEmitOnError": true,
         "baseUrl": ".",
         "paths": {
             "@shared/*": ["../shared/src/*"]

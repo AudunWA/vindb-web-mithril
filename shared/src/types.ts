@@ -78,11 +78,3 @@ export interface PriceChange extends Omit<Product, "epk" | "literspris"> {
     new_value: string;
     time: Date;
 }
-
-export function sharedPrint() {
-    console.log("Shared print has changed again and again (x2)!");
-}
-
-export function sharedPrintClient() {
-    console.log("Shared print has changed again and again (x2)!");
-}

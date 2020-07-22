@@ -1,6 +1,6 @@
 import m from "mithril";
 import moment, { Moment } from "moment";
-import HistoryUtil from "../../controllers/HistoryUtil";
+import HistoryUtil from "../../util/HistoryUtil";
 import Change from "../../models/Change";
 import MaterialSelect from "../general/MaterialSelect";
 import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
@@ -68,7 +68,12 @@ const PriceChanges: m.Component = {
 
                     // Add date header if new date
                     if (!date.isSame(lastDate, "date")) {
-                        vnodes.push(m("li.collection-header", m("h5", date)));
+                        vnodes.push(
+                            m(
+                                "li.collection-header",
+                                m("h5", date.format("D. MMMM YYYY")),
+                            ),
+                        );
                         lastDate = date;
                     }
 

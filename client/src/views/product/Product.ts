@@ -114,7 +114,7 @@ const ProductInfoCard: m.Component<{ product: types.Product }> = {
             m(
                 ".product-card",
                 m("img", {
-                    src: `https://bilder.vinmonopolet.no/cache/1200x1200-0/${product.varenummer}-1.jpg`,
+                    src: `https://bilder.vinmonopolet.no/cache/600x600-0/${product.varenummer}-1.jpg`,
                     style: "height: 35vh",
                     alt: `Produktbilde for ${product.varenavn}`,
                 }),
@@ -125,11 +125,13 @@ const ProductInfoCard: m.Component<{ product: types.Product }> = {
                     m("p", m("b", "Alkoholprosent: "), `${product.alkohol}%`),
                     m("p", m("b", "Volum: "), `${product.volum} liter`),
                     m("p", m("b", "Pris: "), product.pris.toFixed(2) + ",-"),
-                    m(
-                        "p",
-                        m("b", "Literspris: "),
-                        (product.pris / product.volum).toFixed(2) + ",-",
-                    ),
+                    product.volum > 0
+                        ? m(
+                              "p",
+                              m("b", "Literspris: "),
+                              (product.pris / product.volum).toFixed(2) + ",-",
+                          )
+                        : null,
                     m(
                         "p",
                         m("b", "Alkohol per krone: "),
@@ -189,7 +191,11 @@ function getExtendedProductMetadata(
     if (product.metode !== null) {
         values.push({ name: "Metode: ", value: product.metode.toString() });
     }
-    if (product.sukker != null && product.sukker !== "Ukjent") {
+    if (
+        product.sukker != null &&
+        product.sukker !== "Ukjent" &&
+        !isNaN(product.sukker)
+    ) {
         values.push({
             name: "Sukker: ",
             value: `${product.sukker} gram per liter`,
@@ -217,12 +223,15 @@ const ExtendedProductInfoCard: m.Component<{
         const { product } = vnode.attrs;
         if (product === null) return null;
 
+        const metadata = getExtendedProductMetadata(product);
+        if (metadata.length === 0) return null;
+
         return m(
             ".card blue",
             m(
                 ".card-content white-text",
                 m("span.card-title", "Tilleggsinformasjon"),
-                getExtendedProductMetadata(product).map(function (pair) {
+                metadata.map(function (pair) {
                     return m("p", m("b", pair.name), pair.value);
                 }),
             ),
@@ -264,10 +273,6 @@ const ProductView: m.Component<
         );
     },
     view: function (vnode) {
-        console.log("view");
-
-        if (this.product == null) return null;
-
         return [
             m(Tabs, { tabs }),
             m(

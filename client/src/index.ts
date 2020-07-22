@@ -6,7 +6,6 @@ import Product from "./views/product/Product";
 import PriceChanges from "./views/changes/PriceChanges";
 import PriceChangesOld from "./views/changes/PriceChangesOld";
 import AllChanges from "./views/changes/AllChanges";
-import { sharedPrintClient } from "@shared/types";
 
 // Define GA if adblock
 if (window.ga == null) {
@@ -15,7 +14,6 @@ if (window.ga == null) {
     }) as unknown) as UniversalAnalytics.ga;
 }
 
-sharedPrintClient();
 m.route.prefix = "";
 m.route(document.body, "/", {
     "/": {

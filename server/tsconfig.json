@@ -1,17 +1,10 @@
 {
+    "extends": "../tsconfig.base.json",
     "compilerOptions": {
         "lib": ["ESNext"],
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "es6",
-        "sourceMap": true,
         "outDir": "dist",
-        "composite": true,
         "rootDir": "src",
         "declaration": true,
-        "noEmitOnError": true,
         "baseUrl": ".",
         "paths": {
             "@shared/*": ["../shared/src/*"]

@@ -6,23 +6,34 @@ import * as types from "@shared/types";
 
 const PriceHistoryCard: m.Component<
     { product: types.Product },
-    { inited: boolean }
+    { inited: boolean; isEmpty: boolean }
 > = {
     oncreate: function () {
         this.inited = false;
+        this.isEmpty = false;
     },
     view: function (vnode) {
         if (!this.inited) {
             const product = vnode.attrs.product;
             if (product === null) return;
 
-            Product.loadPriceHistory(product.varenummer).then(initChart);
+            Product.loadPriceHistory(product.varenummer).then((data) => {
+                if (data.length === 0) {
+                    vnode.state.isEmpty = true;
+                }
+                initChart(data);
+            });
         }
         this.inited = true;
         return m(
             "div.s12#chart-container",
             m("h2", "Prisutvikling"),
-            m("canvas#price_chart"),
+            vnode.state.isEmpty
+                ? m(
+                      "h5",
+                      "Dette produktet har ingen registrerte prisendringer.",
+                  )
+                : m("canvas#price_chart"),
         );
     },
 };

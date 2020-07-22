@@ -23,7 +23,6 @@ import { config } from "dotenv";
 import { promisify } from "util";
 
 import compression from "compression";
-import { sharedPrint } from "@shared/types";
 
 console.log("VinDB server starting!");
 const app = express();
@@ -55,7 +54,6 @@ export function query<T = Record<string, unknown>>(
     return (promisify(pool.query).bind(pool) as any)(query, params);
 }
 
-sharedPrint();
 // Listen port
 app.set("port", process.env.PORT || 3000);
 

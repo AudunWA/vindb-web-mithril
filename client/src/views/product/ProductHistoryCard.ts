@@ -10,54 +10,62 @@ const ProductHistoryCard: m.Component<{ history: ProductChange[] }> = {
         let lastDate: Moment;
         return [
             m("h2", "Historikk"),
-            m(
-                "ul.collection.with-header",
-                history.map(function (change) {
-                    const vnodes: m.Vnode[] = [];
-                    const date = moment(change.time);
+            history.length === 0
+                ? m("h5", "Dette produktet har ingen registrerte endringer.")
+                : m(
+                      "ul.collection.with-header",
+                      history.map(function (change) {
+                          const vnodes: m.Vnode[] = [];
+                          const date = moment(change.time);
 
-                    // Add date header if new date
-                    if (!date.isSame(lastDate, "date")) {
-                        vnodes.push(m("li.collection-header", m("h5", date)));
-                        lastDate = date;
-                    }
+                          // Add date header if new date
+                          if (!date.isSame(lastDate, "date")) {
+                              vnodes.push(
+                                  m(
+                                      "li.collection-header",
+                                      m("h5", date.format("D. MMMM YYYY")),
+                                  ),
+                              );
+                              lastDate = date;
+                          }
 
-                    const beforeValue = change.name === "Pris" ? "" : '"';
-                    const afterValue = change.name === "Pris" ? ",-" : '"';
+                          const beforeValue = change.name === "Pris" ? "" : '"';
+                          const afterValue =
+                              change.name === "Pris" ? ",-" : '"';
 
-                    if (
-                        change.old_value == null ||
-                        change.old_value.length === 0
-                    ) {
-                        vnodes.push(
-                            m(
-                                "li.collection-item",
-                                m("b", change.name),
-                                " satt til " +
-                                    beforeValue +
-                                    change.new_value +
-                                    afterValue,
-                            ),
-                        );
-                    } else {
-                        vnodes.push(
-                            m(
-                                "li.collection-item",
-                                m("b", change.name),
-                                " endret fra " +
-                                    beforeValue +
-                                    change.old_value +
-                                    afterValue +
-                                    " til " +
-                                    beforeValue +
-                                    change.new_value +
-                                    afterValue,
-                            ),
-                        );
-                    }
-                    return vnodes;
-                }),
-            ),
+                          if (
+                              change.old_value == null ||
+                              change.old_value.length === 0
+                          ) {
+                              vnodes.push(
+                                  m(
+                                      "li.collection-item",
+                                      m("b", change.name),
+                                      " satt til " +
+                                          beforeValue +
+                                          change.new_value +
+                                          afterValue,
+                                  ),
+                              );
+                          } else {
+                              vnodes.push(
+                                  m(
+                                      "li.collection-item",
+                                      m("b", change.name),
+                                      " endret fra " +
+                                          beforeValue +
+                                          change.old_value +
+                                          afterValue +
+                                          " til " +
+                                          beforeValue +
+                                          change.new_value +
+                                          afterValue,
+                                  ),
+                              );
+                          }
+                          return vnodes;
+                      }),
+                  ),
         ];
     },
 };
