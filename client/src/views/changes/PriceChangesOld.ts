@@ -10,7 +10,7 @@ const PriceChanges: m.Component = {
     },
     oncreate: function () {
         document.title = "Prisendringer — VinDB";
-        setCanonicalUrl("http://vindb.audun.me/pricechangesold");
+        setCanonicalUrl("https://vindb.audun.me/pricechangesold");
         setMetaDescription("Alternativ oversikt over prisendringer.");
     },
     view: function () {

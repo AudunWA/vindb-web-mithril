@@ -22,7 +22,7 @@ router.get("/sitemap.xml", async function (req, res) {
 
     try {
         const smStream = new SitemapStream({
-            hostname: "http://vindb.audun.me/",
+            hostname: "https://vindb.audun.me/",
         });
         const pipeline = smStream.pipe(createGzip());
 

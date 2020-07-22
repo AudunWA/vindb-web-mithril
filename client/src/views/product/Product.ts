@@ -325,7 +325,7 @@ const ProductView: m.Component<
         if (this.product != null) {
             document.title = `${this.product.varenavn} — VinDB`;
             setCanonicalUrl(
-                `http://vindb.audun.me/product/${this.product.varenummer}`,
+                `https://vindb.audun.me/product/${this.product.varenummer}`,
             );
             setMetaDescription(generateMetaDescription(this.product));
         }

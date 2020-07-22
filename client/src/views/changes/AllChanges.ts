@@ -32,7 +32,7 @@ const PriceChanges: m.Component = {
     },
     oncreate: () => {
         document.title = "Endringer — VinDB";
-        setCanonicalUrl("http://vindb.audun.me/history");
+        setCanonicalUrl("https://vindb.audun.me/history");
         setMetaDescription(
             "Oversikt over de siste endringene gjort i Vinmonopolets vareutvalg.",
         );

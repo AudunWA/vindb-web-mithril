@@ -16,7 +16,7 @@ function onSearchClick(e: Event) {
 const Home: m.Component = {
     oncreate: function () {
         document.title = "VinDB";
-        setCanonicalUrl("http://vindb.audun.me/");
+        setCanonicalUrl("https://vindb.audun.me/");
         setMetaDescription(
             "VinDB gir oversikt over alle endringer gjort i Vinmonopolets vareutvalg. Vi sjekker daglig varenes endringer, og holder styr på alt fra prisendringer til rettinger av skrivefeil!",
         );
