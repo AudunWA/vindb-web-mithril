@@ -5,8 +5,9 @@ import { EnumChangefreq, SitemapStream, streamToPromise } from "sitemap";
 import { createGzip } from "zlib";
 import express from "express";
 import moment from "moment";
+import { Product } from "@shared/types";
 
-let sitemap;
+let sitemap: Buffer;
 
 const router = express.Router();
 export default router;
@@ -46,11 +47,13 @@ router.get("/sitemap.xml", async function (req, res) {
                 return EnumChangefreq.WEEKLY;
             }
         };
-        const result = await query("SELECT varenummer, last_seen FROM product");
+        const result: Pick<Product, "varenummer" | "last_seen">[] = await query(
+            "SELECT varenummer, last_seen FROM product",
+        );
         result.forEach(({ varenummer, last_seen }) =>
             smStream.write({
                 url: `/product/${varenummer}`,
-                changefreq: chooseChangeFreq(new Date(last_seen)),
+                changefreq: chooseChangeFreq(last_seen),
                 lastmod: moment(last_seen).format("YYYY-MM-DD"),
             }),
         );

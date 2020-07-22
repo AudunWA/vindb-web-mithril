@@ -1,32 +1,41 @@
 import m from "mithril";
+import { ProductChange } from "@shared/types";
 
-const Change = {
+interface ChangeType {
+    list: ProductChange[];
+    error?: Error;
+    loadChanges: (fieldIds?: string[]) => Promise<void>;
+    getPriceDifference: (
+        change: ProductChange,
+    ) => { delta: number; percent: number };
+}
+const Change: ChangeType = {
     list: [],
-    error: null,
-    loadChanges: function (fieldIds) {
-        const data: {fields?: string[]} = {};
+    error: undefined,
+    loadChanges: async (fieldIds?: string[]): Promise<void> => {
+        const data: { fields?: string } = {};
         if (fieldIds) {
             data.fields = fieldIds.join();
         }
-        return m.request<object[]>({
-            method: "GET",
-            url: "/rest/changes",
-            params: data
-        })
-            .then(function (result) {
-                Change.list = result;
-            })
-            .catch(function (e) {
-                Change.error = e.message;
+        try {
+            Change.list = await m.request<ProductChange[]>({
+                method: "GET",
+                url: "/rest/changes",
+                params: data,
             });
+        } catch (e) {
+            Change.error = e;
+        }
     },
-    getPriceDifference: function (change) {
+    getPriceDifference: (
+        change: ProductChange,
+    ): { delta: number; percent: number } => {
         const oldPrice = parseFloat(change.old_value.replace(",", "."));
         const newPrice = parseFloat(change.new_value.replace(",", "."));
-        const percent = newPrice / oldPrice * 100;
+        const percent = (newPrice / oldPrice) * 100;
         const delta = oldPrice - newPrice;
-        return {delta: delta, percent: percent};
-    }
+        return { delta: delta, percent: percent };
+    },
 };
 
 export default Change;

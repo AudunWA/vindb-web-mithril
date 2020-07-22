@@ -1,18 +1,21 @@
 import m from "mithril";
-import * as types from "../../../shared/src/types";
+import * as types from "@shared/types";
+import { PriceChange, PriceChangeListResponse } from "@shared/types";
+
 interface ProductModel {
     pageCount: number;
-    loadPriceHistory: (productId) => Promise<unknown>;
+    loadPriceHistory: (productId: number) => Promise<PriceChange[]>;
     query: string | null;
-    loadCurrent: (productId) => Promise<void>;
-    loadList: (parameters) => Promise<void>;
+    loadCurrent: (productId: number) => Promise<void>;
+    loadList: (parameters: string[]) => Promise<void>;
     productsPerPage: number;
     currentPage: number;
     list: types.Product[];
     error: string | null;
     currentProduct: types.Product | null;
-    currentChanges: object[] | null;
+    currentChanges: types.ProductChange[] | null;
 }
+
 const Product: ProductModel = {
     query: null,
     productsPerPage: 0,
@@ -25,12 +28,7 @@ const Product: ProductModel = {
 
     loadList: function (parameters) {
         return m
-            .request<{
-                products: types.Product[];
-                currentPage: number;
-                entriesPerPage: number;
-                pageCount: number;
-            }>({
+            .request<types.ProductListResponse>({
                 method: "GET",
                 url: "/rest/products",
                 params: parameters,
@@ -47,7 +45,7 @@ const Product: ProductModel = {
                     }
                 });
                 Product.list = result.products;
-                Product.productsPerPage = result.entriesPerPage;
+                Product.productsPerPage = result.productsPerPage;
                 Product.currentPage = result.currentPage;
                 Product.pageCount = result.pageCount;
             })
@@ -57,9 +55,12 @@ const Product: ProductModel = {
     },
     loadCurrent: function (productId) {
         return m
-            .request<{ product: any; changes: any[] }>({
+            .request<{
+                product: types.Product;
+                changes: types.ProductChange[];
+            }>({
                 method: "GET",
-                url: "/rest/products/" + productId,
+                url: `/rest/products/${productId}`,
             })
             .then(function (result) {
                 if (result.product.literspris == null) {
@@ -80,12 +81,13 @@ const Product: ProductModel = {
     },
     loadPriceHistory: function (productId) {
         return m
-            .request({
+            .request<PriceChangeListResponse>({
                 method: "GET",
-                url: "/rest/pricehistory/" + productId,
+                url: `/rest/pricehistory/${productId}`,
             })
-            .catch(function (e) {
+            .catch<PriceChangeListResponse>(function (e) {
                 Product.error = e.message;
+                return [];
             });
     },
 };

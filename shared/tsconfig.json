@@ -1,26 +1,13 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es6",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "rootDir": "src",
     "outDir": "dist",
-    "baseUrl": ".",
-    "strict": true,
-    "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "src/types/*"
-      ]
-    }
+    "rootDir": "src"
   },
+  "references": [],
   "include": [
-    "src/**/*"
+    "src"
   ]
 }

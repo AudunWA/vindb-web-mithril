@@ -3,25 +3,21 @@
  */
 import express from "express";
 
-import squel from "squel";
-import {pool} from "../../app";
+import { query } from "../../app";
+import { PriceChange, PriceChangeListResponse } from "@shared/types";
 
 const router = express.Router();
-router.get('/:product_id', function(req, res, next) {
+router.get("/:product_id", async (req, res, next) => {
     const productId = req.params.product_id;
-    pool.getConnection(function(err, connection) {
-        if (err) {
-            return next(err);
-        }
-
-        connection.query("SELECT old_value, new_value, time FROM product_change NATURAL JOIN change_log WHERE field_id = 4 AND product_id = ? ORDER BY time LIMIT 200", [productId], function(err, rows, fields) {
-            connection.release();
-            if (err) {
-                return next(err);
-            }
-            res.json(rows);
-        });
-    });
+    try {
+        const result: PriceChangeListResponse = await query<PriceChange>(
+            "SELECT old_value, new_value, time FROM product_change NATURAL JOIN change_log WHERE field_id = 4 AND product_id = ? ORDER BY time LIMIT 200",
+            productId,
+        );
+        return res.json(result);
+    } catch (e) {
+        return next(e);
+    }
 });
 
 export default router;
