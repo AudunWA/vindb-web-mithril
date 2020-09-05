@@ -38,7 +38,7 @@ const PriceHistoryCard: m.Component<
     },
 };
 
-function initChart(data: types.ProductChange[]) {
+function initChart(data: types.PriceChange[]) {
     // TODO: Move to models?
     const proceededData = doData(data);
     const config = {
@@ -108,7 +108,7 @@ function initChart(data: types.ProductChange[]) {
 }
 
 function doData(
-    data: types.ProductChange[],
+    data: types.PriceChange[],
 ): {
     data: { x: Date; y: number }[];
     maxX: Date;

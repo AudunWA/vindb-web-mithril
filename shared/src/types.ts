@@ -60,7 +60,7 @@ export interface ProductListResponse {
     pageCount: number;
 }
 
-export type PriceChangeListResponse = ProductChange[];
+export type PriceChangeListResponse = PriceChange[];
 
 export interface ProductChange {
     time: Date;
@@ -72,3 +72,8 @@ export interface ProductChange {
     new_value: string;
     name: string;
 }
+
+export type PriceChange = Pick<
+    ProductChange,
+    "old_value" | "new_value" | "time"
+>;

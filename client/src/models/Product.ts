@@ -4,7 +4,7 @@ import { PriceChangeListResponse } from "@shared/types";
 
 interface ProductModel {
     pageCount: number;
-    loadPriceHistory: (productId: number) => Promise<types.ProductChange[]>;
+    loadPriceHistory: (productId: number) => Promise<types.PriceChange[]>;
     query: string | null;
     loadCurrent: (productId: number) => Promise<void>;
     loadList: (parameters: string[]) => Promise<void>;
