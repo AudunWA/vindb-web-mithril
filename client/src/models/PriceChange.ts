@@ -1,12 +1,12 @@
 import m from "mithril";
-import { PriceChange } from "@shared/types";
+import { ProductChange } from "@shared/types";
 
 interface PriceChangeType {
-    list: PriceChange[];
+    list: ProductChange[];
     error: string | null;
     loadPriceChanges: () => Promise<void>;
     getPriceDifference: (
-        change: PriceChange,
+        change: ProductChange,
     ) => { delta: number; percent: number };
 }
 const PriceChange: PriceChangeType = {
@@ -14,7 +14,7 @@ const PriceChange: PriceChangeType = {
     error: null,
     loadPriceChanges: () =>
         m
-            .request<PriceChange[]>({
+            .request<ProductChange[]>({
                 method: "GET",
                 url: "/rest/changes?fields=4",
             })

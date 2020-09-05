@@ -33,10 +33,10 @@ const PriceChanges: m.Component = {
                         title: change.varenavn,
                         links: m(
                             m.route.Link,
-                            { href: `/product/${change.varenummer}` },
+                            { href: `/product/${change.product_id}` },
                             "Se produkt",
                         ),
-                        image: `https://bilder.vinmonopolet.no/cache/515x515-0/${change.varenummer}-1.jpg`,
+                        image: `https://bilder.vinmonopolet.no/cache/515x515-0/${change.product_id}-1.jpg`,
                     },
                     m(
                         "p",

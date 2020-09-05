@@ -5,7 +5,6 @@ import Change from "../../models/Change";
 import MaterialSelect from "../general/MaterialSelect";
 import { setCanonicalUrl, setMetaDescription } from "../../util/searchEngines";
 
-let lastDate: Moment | null = null;
 let loading = true;
 
 function loadPriceChanges(fieldIds?: string[]) {
@@ -51,6 +50,7 @@ const PriceChanges: m.Component = {
                 m(".progress", m(".indeterminate")),
             );
         }
+        let lastDate = moment(new Date(1970, 1, 1));
         return m(
             ".container",
             m("h2", "Alle endringer"),

@@ -1,10 +1,10 @@
 import m from "mithril";
 import * as types from "@shared/types";
-import { PriceChange, PriceChangeListResponse } from "@shared/types";
+import { PriceChangeListResponse } from "@shared/types";
 
 interface ProductModel {
     pageCount: number;
-    loadPriceHistory: (productId: number) => Promise<PriceChange[]>;
+    loadPriceHistory: (productId: number) => Promise<types.ProductChange[]>;
     query: string | null;
     loadCurrent: (productId: number) => Promise<void>;
     loadList: (parameters: string[]) => Promise<void>;

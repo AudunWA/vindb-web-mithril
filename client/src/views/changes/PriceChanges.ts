@@ -96,7 +96,7 @@ const PriceChanges: m.Component = {
                                 m(
                                     m.route.Link,
                                     {
-                                        href: "/product/" + change.varenummer,
+                                        href: "/product/" + change.product_id,
                                     },
                                     "Gå til produkt",
                                 ),
